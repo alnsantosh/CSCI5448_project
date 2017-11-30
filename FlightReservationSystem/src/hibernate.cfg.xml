@@ -26,6 +26,7 @@
 		
 		<mapping class="com.flight.entity.AddressEntity"/>
 		<mapping class="com.flight.entity.PersonEntity"/>
+		<mapping class="com.flight.entity.PassengerEntity"/>
 		
  
     </session-factory>

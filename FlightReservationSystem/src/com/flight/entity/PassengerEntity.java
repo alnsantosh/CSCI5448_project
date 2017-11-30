@@ -24,8 +24,62 @@ public class PassengerEntity {
 	private String passportNo;
 	
 	@OneToOne
-	@JoinColumn(name="id",nullable=false)
-	private AddressEntity address;
+	@JoinColumn(name="email",nullable=false)
+	private PersonEntity person;
+
+	public PassengerEntity()
+	{
+		
+	}
+	public String getVisaType() {
+		return visaType;
+	}
+
+
+	public PassengerEntity(String visaType, String ticketType, String mealType, String passportNo,
+			PersonEntity person) {
+		super();
+		this.visaType = visaType;
+		this.ticketType = ticketType;
+		this.mealType = mealType;
+		this.passportNo = passportNo;
+		this.person = person;
+	}
+	public void setVisaType(String visaType) {
+		this.visaType = visaType;
+	}
+
+	public String getTicketType() {
+		return ticketType;
+	}
+
+	public void setTicketType(String ticketType) {
+		this.ticketType = ticketType;
+	}
+
+	public String getMealType() {
+		return mealType;
+	}
+
+	public void setMealType(String mealType) {
+		this.mealType = mealType;
+	}
+
+	public String getPassportNo() {
+		return passportNo;
+	}
+
+	public void setPassportNo(String passportNo) {
+		this.passportNo = passportNo;
+	}
+
+	public PersonEntity getPerson() {
+		return person;
+	}
+
+	public void setPerson(PersonEntity person) {
+		this.person = person;
+	}
 
 
 
