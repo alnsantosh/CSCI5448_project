@@ -20,7 +20,7 @@ public class PersonEntity {
 	@Column(name="last_name")
 	private String lastName;
 	@OneToOne
-	@JoinColumn(name="id",nullable=false)
+	@JoinColumn(name="address_id",nullable=false)
 	private AddressEntity address;
 	@Column(name="gender")
 	private String gender;
