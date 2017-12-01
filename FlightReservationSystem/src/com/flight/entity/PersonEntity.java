@@ -3,6 +3,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -14,6 +16,7 @@ import com.flight.bean.Address;
 
 @Entity
 @Table(name="person")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class PersonEntity {
 	@Column(name="first_name")
 	private String firstName;

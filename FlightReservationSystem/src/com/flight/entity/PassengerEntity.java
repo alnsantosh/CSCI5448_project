@@ -12,7 +12,7 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name="passenger")
-public class PassengerEntity {
+public class PassengerEntity extends PersonEntity{
 	@Column(name="visa_type")
 	private String visaType;
 	@Column(name="ticket_type")
@@ -23,9 +23,9 @@ public class PassengerEntity {
 	@Column(name="passport_no")
 	private String passportNo;
 	
-	@OneToOne
-	@JoinColumn(name="email",nullable=false)
-	private PersonEntity person;
+//	@OneToOne
+//	@JoinColumn(name="email",nullable=false)
+//	private PersonEntity person;
 
 	public PassengerEntity()
 	{
@@ -36,14 +36,13 @@ public class PassengerEntity {
 	}
 
 
-	public PassengerEntity(String visaType, String ticketType, String mealType, String passportNo,
-			PersonEntity person) {
+	public PassengerEntity(String visaType, String ticketType, String mealType, String passportNo) 
+	{
 		super();
 		this.visaType = visaType;
 		this.ticketType = ticketType;
 		this.mealType = mealType;
 		this.passportNo = passportNo;
-		this.person = person;
 	}
 	public void setVisaType(String visaType) {
 		this.visaType = visaType;
@@ -73,13 +72,6 @@ public class PassengerEntity {
 		this.passportNo = passportNo;
 	}
 
-	public PersonEntity getPerson() {
-		return person;
-	}
-
-	public void setPerson(PersonEntity person) {
-		this.person = person;
-	}
 
 
 

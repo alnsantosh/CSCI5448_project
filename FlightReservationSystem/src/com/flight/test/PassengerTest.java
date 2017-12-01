@@ -19,8 +19,17 @@ public class PassengerTest {
 		{
 			System.out.println("Creating Passenger object");
 			AddressEntity a=new AddressEntity("NewtonCt",6,"Boulder", "CO", "USA", 80304);
-			PersonEntity p=new PersonEntity("shruthi", "sukumar", a, "M", new Date(2017,2, 11),"sruts@gmail.com", "123456");
-			PassengerEntity pass = new PassengerEntity("F","Economy","Veg","sj77hf",p);
+			PersonEntity p=new PersonEntity("shruthi", "sukumar", a, "M", new Date(2017,2, 11),"kkts@gmail.com", "123456");
+			PassengerEntity pass = new PassengerEntity("F","Economy","Veg","pjr7hf");
+			pass.setAddress(a);
+			pass.setFirstName(p.getFirstName());
+			pass.setLastName(p.getLastName());
+			pass.setGender(p.getGender());
+			pass.setDate(p.getDate());
+			pass.setEmail(p.getEmail());
+			pass.setPassword(p.getPassword());
+			
+			
 			System.out.println("Beginning Transaction");
 			session.beginTransaction();
 			System.out.println("Saving the passenger in database");
@@ -31,15 +40,15 @@ public class PassengerTest {
 			System.out.println("Commit completed");
 			
 			//primary id
-			PersonEntity pass_person = pass.getPerson();
-			
-			System.out.println("Passenger: "+pass_person.getFirstName()+" "+pass_person.getLastName());
-			 //get a session and start transaction
-			session=factory.getCurrentSession();
-			session.beginTransaction();
-			PassengerEntity f=session.get(PassengerEntity.class,pass.getPassportNo());
-			System.out.println("Passenger:"+f);
-			session.getTransaction().commit();
+//			PersonEntity pass_person = pass.getPerson();
+//			
+//			System.out.println("Passenger: "+pass_person.getFirstName()+" "+pass_person.getLastName());
+//			 //get a session and start transaction
+//			session=factory.getCurrentSession();
+//			session.beginTransaction();
+//			PassengerEntity f=session.get(PassengerEntity.class,pass.getPassportNo());
+//			System.out.println("Passenger:"+f);
+//			session.getTransaction().commit();
 			
 			
 		}
