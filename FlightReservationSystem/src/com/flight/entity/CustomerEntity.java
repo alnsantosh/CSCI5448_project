@@ -1,69 +1,49 @@
 package com.flight.entity;
-import java.util.Date;
+
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.JoinTable;  
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-import com.flight.bean.Passenger;
 
 @Entity
 @Table(name="customer")
-public class CustomerEntity{
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="customer_id")
-	private int customerId;
+@PrimaryKeyJoinColumn(name="email")
+public class CustomerEntity extends PersonEntity {
 	
-	@ManyToMany
-	@JoinTable(name="customer_passenger", joinColumns=@JoinColumn(name="customer_id"), inverseJoinColumns=@JoinColumn(name="passport_no"))
-	private List<PassengerEntity> passenger;
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-
-	public CustomerEntity(List<PassengerEntity> passenger, int noOfReservation) {
-		super();
-		this.passenger = passenger;
-		this.noOfReservation = noOfReservation;
-	}
-
-
-	@Column(name="no_of_reservation")
+	@ManyToMany(cascade={CascadeType.ALL})
+	@JoinTable(
+			name="passenger_customer",
+			joinColumns={@JoinColumn(name="cemail")},
+			inverseJoinColumns={@JoinColumn(name="pemail")}
+			)
+	//@OneToMany(fetch=FetchType.LAZY,mappedBy="customer")
+	private List<PassengerEntity> passenger=new ArrayList<>();
+	@Column(name="noofreservations")
 	private int noOfReservation;
-	
 	public List<PassengerEntity> getPassenger() {
 		return passenger;
 	}
-
 	public void setPassenger(List<PassengerEntity> passenger) {
 		this.passenger = passenger;
 	}
-
 	public int getNoOfReservation() {
 		return noOfReservation;
 	}
-
 	public void setNoOfReservation(int noOfReservation) {
 		this.noOfReservation = noOfReservation;
 	}
-
-
 	
+	
+	
+
 }

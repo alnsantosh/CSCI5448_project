@@ -22,26 +22,21 @@ public class Database {
 		}
 		return factory;
 	}
-	
 	public List<Reservation> addReservationtToDb(Reservation reservation)
 	{
-		return null;
 		
+		return null;
 	}
-	
 	public boolean addCustomerToDb()
 	{
 		return false;
 	}
-	
 	public boolean checkCustomerInDb(Customer customer)
 	{
 		return false;
 	}
-	
 	public AvailableTransport getFlightListFromDb(List<Transportation> transports)
 	{
 		return null;
 	}
-
 }

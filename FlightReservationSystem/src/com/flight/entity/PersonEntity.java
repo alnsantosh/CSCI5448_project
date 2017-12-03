@@ -2,6 +2,8 @@ package com.flight.entity;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -12,6 +14,7 @@ import com.flight.bean.Address;
 
 @Entity
 @Table(name="person")
+@Inheritance(strategy=InheritanceType.JOINED)
 public class PersonEntity {
 	private String firstName;
 	private String lastName;

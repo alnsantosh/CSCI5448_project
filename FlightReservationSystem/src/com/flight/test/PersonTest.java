@@ -13,7 +13,6 @@ import com.flight.entity.PersonEntity;
 
 
 public class PersonTest {
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		SessionFactory factory=new Configuration().configure().buildSessionFactory();
@@ -22,7 +21,7 @@ public class PersonTest {
 		{
 			System.out.println("Creating Flight object");
 			AddressEntity a=new AddressEntity("Glenwood",6,"Boulder", "CO", "USA", 80304);
-			PersonEntity p=new PersonEntity("afirst", "blast", a, "M", new Date(2017,2, 11),"abcdefg@gmail.com", "123456");
+			PersonEntity p=new PersonEntity("afirst", "blast", a, "M", new Date(2017,2, 11),"abcd122@gmail.com", "123456");
 			System.out.println("Beginning Transaction");
 			session.beginTransaction();
 			System.out.println("Saving the flight");
@@ -39,8 +38,7 @@ public class PersonTest {
 			PersonEntity f=session.get(PersonEntity.class,p.getEmail());
 			System.out.println("Person:"+f);
 			System.out.println(f.getFirstName()+f.getLastName()+f.getEmail()+f.getPassword());
-			session.getTransaction().commit();
-			
+			session.getTransaction().commit();	
 		}
 		catch(Exception e)
 		{
@@ -49,8 +47,5 @@ public class PersonTest {
 		finally {
 			factory.close();
 		}
-
-
 	}
-
 }
