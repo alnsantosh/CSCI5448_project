@@ -12,7 +12,7 @@ import javax.persistence.Table;
 public class AddressEntity {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="address_id")
+	@Column(name="id")
 	private int id;
 	@Column(name="street")
 	private String street;

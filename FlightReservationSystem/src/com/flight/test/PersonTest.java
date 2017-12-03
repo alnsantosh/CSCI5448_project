@@ -22,7 +22,7 @@ public class PersonTest {
 		{
 			System.out.println("Creating Flight object");
 			AddressEntity a=new AddressEntity("Glenwood",6,"Boulder", "CO", "USA", 80304);
-			PersonEntity p=new PersonEntity("afirst", "blast", a, "M", new Date(2017,2, 11),"cm4defg@gmail.com", "123456");
+			PersonEntity p=new PersonEntity("afirst", "blast", a, "M", new Date(2017,2, 11),"abcdefg@gmail.com", "123456");
 			System.out.println("Beginning Transaction");
 			session.beginTransaction();
 			System.out.println("Saving the flight");
@@ -40,7 +40,6 @@ public class PersonTest {
 			System.out.println("Person:"+f);
 			System.out.println(f.getFirstName()+f.getLastName()+f.getEmail()+f.getPassword());
 			session.getTransaction().commit();
-			
 			
 		}
 		catch(Exception e)

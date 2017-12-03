@@ -1,10 +1,6 @@
 package com.flight.entity;
 import java.util.Date;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -16,24 +12,17 @@ import com.flight.bean.Address;
 
 @Entity
 @Table(name="person")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class PersonEntity {
-	@Column(name="first_name")
 	private String firstName;
-	@Column(name="last_name")
 	private String lastName;
 	@OneToOne
-	@JoinColumn(name="address_id",nullable=false)
+	@JoinColumn(name="id",nullable=false)
 	private AddressEntity address;
-	@Column(name="gender")
 	private String gender;
 	@Temporal(TemporalType.DATE)
-	@Column(name="dob")
 	private Date dob;
 	@Id
-	@Column(name="email")
 	private String email;
-	@Column(name="password")
 	private String password;
 	
 	public PersonEntity()
