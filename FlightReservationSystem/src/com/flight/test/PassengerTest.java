@@ -19,7 +19,7 @@ public class PassengerTest {
 		{
 			System.out.println("Creating Passenger object");
 			AddressEntity a=new AddressEntity("NewtonCt",6,"Boulder", "CO", "USA", 80304);
-			PersonEntity p=new PersonEntity("shruthi", "sukumar", a, "M", new Date(2017,2, 11),"kkts@gmail.com", "123456");
+			PersonEntity p=new PersonEntity("shruthi", "sukumar", a, "M", new Date(2017,2, 11),"ffkkts@gmail.com", "123456");
 			PassengerEntity pass = new PassengerEntity("F","Economy","Veg","pjr7hf");
 			pass.setAddress(a);
 			pass.setFirstName(p.getFirstName());

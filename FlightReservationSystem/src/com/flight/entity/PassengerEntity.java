@@ -19,7 +19,6 @@ public class PassengerEntity extends PersonEntity{
 	private String ticketType;
 	@Column(name="meal_type")
 	private String mealType;
-	@Id
 	@Column(name="passport_no")
 	private String passportNo;
 	
