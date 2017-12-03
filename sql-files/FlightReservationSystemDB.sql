@@ -46,9 +46,3 @@ CREATE TABLE flight_database.`Address` (
     );
     
     desc flight_database.person;
-    
-    drop table flight_database.person;
-    
-    drop table flight_database.customer;
-    
-    drop table flight_database.passenger;
