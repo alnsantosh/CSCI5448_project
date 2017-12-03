@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS `address` (
  PRIMARY KEY (`address_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
-
+DROP TABLE IF EXISTS `person`;
 
 CREATE TABLE IF NOT EXISTS`person` (
  `first_name` varchar(45) DEFAULT NULL,
@@ -35,8 +35,30 @@ CREATE TABLE `passenger` (
  `ticket_type` varchar(45) DEFAULT NULL,
  `meal_type` varchar(45) DEFAULT NULL,
  `passport_no` varchar(45) NOT NULL,
- `email` varchar(50) NOT NULL,
+ `email` varchar(50) NOT NULL, 
  PRIMARY KEY (`passport_no`),
  KEY `person_fk` (`email`),
  CONSTRAINT `person_fk` FOREIGN KEY (`email`) REFERENCES `person` (`email`)
-)DEFAULT CHARSET=latin1;
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+DROP TABLE IF EXISTS `customer`;
+
+CREATE TABLE `customer` (
+ `customer_id` int(11) NOT NULL AUTO_INCREMENT,
+  `no_of_reservation` int(11) DEFAULT NULL,
+  `email` varchar(50) NOT NULL,
+ PRIMARY KEY (`customer_id`),
+ KEY `person_fl` (`email`),
+ CONSTRAINT `person_fl` FOREIGN KEY (`email`) REFERENCES `person` (`email`)
+)ENGINE=InnoDB AUTO_INCREMENT=1 CHARSET=latin1;
+
+
+DROP TABLE IF EXISTS `customer_passenger`;
+
+CREATE TABLE `customer_passenger` (
+ `customer_id` int(11) NOT NULL AUTO_INCREMENT,
+ `passport_no` varchar(45) NOT NULL,
+ PRIMARY KEY (`customer_id`,`passport_no`),
+ CONSTRAINT `customer_fk` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`customer_id`),
+ CONSTRAINT `passenger_fk` FOREIGN KEY (`passport_no`) REFERENCES `passenger` (`passport_no`)
+)ENGINE=InnoDB CHARSET=latin1;
