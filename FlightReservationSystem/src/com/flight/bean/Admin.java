@@ -4,6 +4,11 @@ import java.util.Date;
 
 public class Admin extends Person {
 	
+	public Admin()
+	{
+		
+	}
+	
 	public Admin(String firstName, String lastName, Address address, String gender, Date date, String email,
 			String password) {
 		super(firstName, lastName, address, gender, date, email, password);

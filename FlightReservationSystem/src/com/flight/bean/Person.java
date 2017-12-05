@@ -12,6 +12,11 @@ public class Person {
 	private String email;
 	private String password;
 	
+	public Person()
+	{
+		
+	}
+	
 	public Person(String firstName, String lastName, Address address, String gender, Date date, String email,
 			String password) {
 		super();

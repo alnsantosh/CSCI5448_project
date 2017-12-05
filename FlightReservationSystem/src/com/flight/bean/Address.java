@@ -9,6 +9,10 @@ public class Address {
 	private String country;
 	private int zipCode;
 	
+	public Address()
+	{
+		
+	}
 	public Address(String street, int unit, String city, String state, String country, int zipCode) {
 		super();
 		this.street = street;
