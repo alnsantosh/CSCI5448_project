@@ -45,4 +45,29 @@ CREATE TABLE flight_database.`Address` (
     
     );
     
+    create table flight_database.`Transportation` (
+    `id` int(10) not null,
+    `airline` varchar(50) default null,
+    `aircraft` varchar(50) default null,
+    `vesselno` varchar(50) default null,
+    `sourceairport` varchar(50) default null,
+    `destinationairport` varchar(50) default null,
+    `arrivaldate` datetime default null,
+    `departuredate` datetime default null,
+    `modelname` varchar(50),
+    `noofseats` int(10),
+    primary key(`id`)
+    );
+    
+    insert into flight_database.`transportation` 
+    values(1,"BA","BA121","121","Denver","California","");
+    
+    
+    
     desc flight_database.person;
+    
+    drop table flight_database.person;
+    
+    drop table flight_database.customer;
+    
+    drop table flight_database.passenger;
