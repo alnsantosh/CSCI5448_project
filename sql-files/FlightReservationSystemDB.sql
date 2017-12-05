@@ -62,7 +62,11 @@ CREATE TABLE flight_database.`Address` (
     insert into flight_database.`transportation` 
     values(1,"BA","BA121","121","Denver","California","");
     
-    
+    create table flight_database. `Reservation`(
+    `id` int(10) not null,
+    `email` varchar(50) not null,
+    primary key(`id`, `email`)
+    );
     
     desc flight_database.person;
     
