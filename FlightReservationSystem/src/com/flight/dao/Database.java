@@ -1,7 +1,10 @@
 package com.flight.dao;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+
+import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -140,6 +143,10 @@ public class Database {
 	}
 	public AvailableTransport getFlightListFromDb(List<Transportation> transports)
 	{
+		Session session=factory.getCurrentSession();
+		Calendar c=Calendar.getInstance();
+		
+		Query query=session.createQuery("from reservation where ");
 		return null;
 	}
 	public boolean signIn(Person person)

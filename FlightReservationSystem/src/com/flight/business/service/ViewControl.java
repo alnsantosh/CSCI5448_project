@@ -1,5 +1,6 @@
 package com.flight.business.service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -72,7 +73,7 @@ public class ViewControl {
 		ViewControl v=new ViewControl();
 		while(true)
 		{
-			System.out.println("Welcome to Flight Reservation System\n1.Press 1 to Login\n2.Press 2 to Signup\n3.Press 3 to login as admin");
+			System.out.println("Welcome to Flight Reservation System\n1.Press 1 to Login\n2.Press 2 to Signup\n3.Press 3 to login as admin\n4.Press 4 to exit");
 			Scanner s=new Scanner(System.in);
 			int input=s.nextInt();
 			if(input==1)
@@ -85,6 +86,10 @@ public class ViewControl {
 				
 				
 				//call signin
+				Transportation t=new Transportation();
+				System.out.println("Please enter the departure date:");
+				
+				System.out.println("Please enter no of passengers:");
 			}
 			else if(input==2)
 			{
@@ -149,6 +154,10 @@ public class ViewControl {
 						}
 					}
 				}
+			}
+			else if(input==4)
+			{
+				System.exit(0);
 			}
 			else
 			{
