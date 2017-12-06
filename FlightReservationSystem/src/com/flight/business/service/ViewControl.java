@@ -59,6 +59,7 @@ public class ViewControl {
 	
 	public boolean viewDisplayList(Transportation transport)
 	{
+		d.getFlightListFromDb(transport);
 		return false;
 		
 	}
@@ -87,9 +88,30 @@ public class ViewControl {
 				
 				//call signin
 				Transportation t=new Transportation();
-				System.out.println("Please enter the departure date:");
-				
-				System.out.println("Please enter no of passengers:");
+				while(true)
+				{
+					System.out.println("Please let us know whether the trip is one way(1) or round trip(2), Press 1 or 2");
+					int selection=s.nextInt();
+					System.out.println("Please enter the departure date in yyyy-mm-dd :");
+					Calendar dep=Calendar.getInstance();
+					String[] str=s.next().split("-");
+					dep.set(Integer.parseInt(str[0]), Integer.parseInt(str[1]), Integer.parseInt(str[2]));
+					t.setDepartureDate(dep);
+					if(selection==2)
+					{
+						System.out.println("Please enter the arrival date in yyyy-mm-dd :");
+						Calendar arr=Calendar.getInstance();
+						String[] str2=s.next().split("-");
+						arr.set(Integer.parseInt(str2[0]), Integer.parseInt(str2[1]), Integer.parseInt(str2[2]));
+						t.setArrivalDate(arr);
+					}
+					System.out.println("Please enter no of passengers:");
+					int noOfPass=s.nextInt();
+					System.out.println(t.getArrivalDate());
+					v.viewDisplayList(t);
+					
+					
+				}
 			}
 			else if(input==2)
 			{

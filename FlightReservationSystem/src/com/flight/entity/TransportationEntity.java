@@ -14,7 +14,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name="tranportation")
+@Table(name="transportation")
 @Inheritance(strategy=InheritanceType.JOINED)
 public class TransportationEntity {
 	@Column(name="id")

@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import javax.persistence.Query;
+//import javax.persistence.Query;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 
 import com.flight.bean.Address;
 import com.flight.bean.AvailableTransport;
@@ -21,6 +22,7 @@ import com.flight.entity.AddressEntity;
 import com.flight.entity.CustomerEntity;
 import com.flight.entity.PassengerEntity;
 import com.flight.entity.PersonEntity;
+import com.flight.entity.TransportationEntity;
 
 public class Database {
 	
@@ -141,12 +143,18 @@ public class Database {
 		}
 		return false;
 	}
-	public AvailableTransport getFlightListFromDb(List<Transportation> transports)
+	public AvailableTransport getFlightListFromDb(Transportation transport)
 	{
 		Session session=factory.getCurrentSession();
 		Calendar c=Calendar.getInstance();
+		//Query query=session.createQuery("from transportation where departuredate>="+departureDate);
+		//org.hibernate.Query q
+		//List<Transportation> list=query.l
+		Query query=session.createQuery("from TransportationEntity");//>="+transport.getDepartureDate());
+		List<TransportationEntity> list1=query.list();
+		System.out.println(list1.get(0).getAircraft());
+		AvailableTransport at=new AvailableTransport();
 		
-		Query query=session.createQuery("from reservation where ");
 		return null;
 	}
 	public boolean signIn(Person person)
