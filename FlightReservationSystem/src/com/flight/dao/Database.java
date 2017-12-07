@@ -48,16 +48,6 @@ public class Database {
 			factory=getDBTable();
 			Session session=factory.getCurrentSession();
 			session.beginTransaction();
-			CustomerEntity ce=new CustomerEntity();
-			ce.setDate(customer.getDate());
-			ce.setEmail(customer.getEmail());
-			ce.setFirstName(customer.getFirstName());
-			ce.setGender(customer.getGender());
-			ce.setLastName(customer.getLastName());
-			ce.setNoOfReservation(customer.getNoOfReservation());
-			ce.setPassword(customer.getPassword());
-			List<Passenger> pass=customer.getPassenger();
-			List<PassengerEntity> passentity=new ArrayList<>();
 			if(pass!=null)
 			{
 				for(int i=0;i<pass.size();i++)
@@ -86,23 +76,6 @@ public class Database {
 					passentity.add(pe);	
 				}
 			}
-			ce.setPassenger(passentity);
-			
-			AddressEntity ae=new AddressEntity();
-			ae.setCity(customer.getAddress().getCity());
-			ae.setCountry(customer.getAddress().getCountry());
-			ae.setState(customer.getAddress().getState());
-			ae.setStreet(customer.getAddress().getStreet());
-			ae.setUnit(customer.getAddress().getUnit());
-			ae.setZipCode(customer.getAddress().getZipCode());
-			
-			ce.setAddress(ae);
-			
-			session.save(ae);
-			session.save(ce);
-			
-			session.getTransaction().commit();
-			
 			
 			return true;
 		}
@@ -150,10 +123,6 @@ public class Database {
 		//Query query=session.createQuery("from transportation where departuredate>="+departureDate);
 		//org.hibernate.Query q
 		//List<Transportation> list=query.l
-		Query query=session.createQuery("from TransportationEntity");//>="+transport.getDepartureDate());
-		List<TransportationEntity> list1=query.list();
-		System.out.println(list1.get(0).getAircraft());
-		AvailableTransport at=new AvailableTransport();
 		
 		return null;
 	}
