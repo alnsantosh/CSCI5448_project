@@ -17,6 +17,11 @@ import com.flight.bean.Transportation;
 @PrimaryKeyJoinColumn(name="id")
 public class AvailableTransportEntity extends TransportationEntity{
 	@ManyToMany(cascade={CascadeType.ALL})
+	@JoinTable(
+			name="transportation_available",
+			joinColumns={@JoinColumn(name="aid")},
+			inverseJoinColumns={@JoinColumn(name="sid")}
+			)
 	private List<Transportation> availList;
 
 	public List<Transportation> getAvailList() {

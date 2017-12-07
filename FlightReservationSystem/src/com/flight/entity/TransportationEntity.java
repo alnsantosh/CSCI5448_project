@@ -28,6 +28,18 @@ public class TransportationEntity {
 	@Column(name="vesselno")
 	private String vesselNo;
 	@Column(name="sourceairport")
+	private String sourceAirport;
+	@Column(name="destinationairport")
+	private String destinationAirpoty;
+	@Column(name="arrivaldate")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar arrivalDate;
+	@Column(name="departuredate")
+	@Temporal(TemporalType.TIMESTAMP)
+	private Calendar departureDate;
+	@Column(name="modelname")
+	private String modelName;
+	@Column(name="noofseats")
 	private int noOfSeats;
 	public String getAirline() {
 		return airline;
