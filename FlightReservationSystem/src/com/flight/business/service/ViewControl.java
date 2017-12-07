@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.flight.bean.Address;
 import com.flight.bean.Admin;
+import com.flight.bean.AvailableTransport;
 import com.flight.bean.Customer;
 import com.flight.bean.Flight;
 import com.flight.bean.Person;
@@ -57,10 +58,9 @@ public class ViewControl {
 		return false;
 	}
 	
-	public boolean viewDisplayList(Transportation transport)
+	public AvailableTransport viewDisplayList(Transportation transport)
 	{
-		d.getFlightListFromDb(transport);
-		return false;
+		return d.getFlightListFromDb(transport);
 		
 	}
 	
@@ -108,7 +108,17 @@ public class ViewControl {
 					System.out.println("Please enter no of passengers:");
 					int noOfPass=s.nextInt();
 					System.out.println(t.getArrivalDate());
-					v.viewDisplayList(t);
+					AvailableTransport at=v.viewDisplayList(t);
+					System.out.println("The flights suitable for you are:");
+					for(int i=0;i<at.getAvailList().size();i++)
+					{
+						System.out.println(i+1+")"+at.getAvailList().get(i).getAircraft());
+					}
+					System.out.println("Select your choice:");
+					int choice=s.nextInt();
+					
+					
+					
 					
 					
 				}

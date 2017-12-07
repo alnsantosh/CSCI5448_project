@@ -150,12 +150,27 @@ public class Database {
 		//Query query=session.createQuery("from transportation where departuredate>="+departureDate);
 		//org.hibernate.Query q
 		//List<Transportation> list=query.l
-		Query query=session.createQuery("from TransportationEntity");//>="+transport.getDepartureDate());
+		Query query=session.createQuery("from TransportationEntity where departureDate>=:depdate");//+transport.getDepartureDate());
+		query.setDate("depdate", transport.getDepartureDate().getTime());
 		List<TransportationEntity> list1=query.list();
 		System.out.println(list1.get(0).getAircraft());
 		AvailableTransport at=new AvailableTransport();
-		
-		return null;
+		for(int i=0;i<list1.size();i++)
+		{
+			TransportationEntity te=list1.get(i);
+			Transportation t=new Transportation();
+			t.setAircraft(te.getAircraft());
+			t.setAirline(te.getAirline());
+			t.setArrivalDate(te.getArrivalDate());
+			t.setDepartureDate(te.getDepartureDate());
+			t.setDestinationAirpoty(te.getDestinationAirpoty());
+			t.setModelName(te.getModelName());
+			t.setNoOfSeats(te.getNoOfSeats());
+			t.setSourceAirport(te.getSourceAirport());
+			t.setVesselNo(te.getVesselNo());
+			at.addAvailTransport(t);
+		}
+		return at;
 	}
 	public boolean signIn(Person person)
 	{

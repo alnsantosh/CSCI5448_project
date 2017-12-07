@@ -11,6 +11,14 @@ public class AvailableTransport extends Transportation {
 		return 0;
 	}
 	
+	public List<Transportation> getAvailList() {
+		return availList;
+	}
+
+	public void setAvailList(List<Transportation> availList) {
+		this.availList = availList;
+	}
+
 	public void searchTransport()
 	{
 		
@@ -18,12 +26,12 @@ public class AvailableTransport extends Transportation {
 	
 	public void addAvailTransport(Transportation transport)
 	{
-		
+		availList.add(transport);
 	}
 	
 	public void removeAvailTransport(Transportation transport)
 	{
-		
+		availList.remove(transport);
 	}
 	
 	
