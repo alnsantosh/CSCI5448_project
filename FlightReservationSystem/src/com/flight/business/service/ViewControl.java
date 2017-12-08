@@ -1,7 +1,9 @@
 package com.flight.business.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 import com.flight.bean.Address;
@@ -9,6 +11,7 @@ import com.flight.bean.Admin;
 import com.flight.bean.AvailableTransport;
 import com.flight.bean.Customer;
 import com.flight.bean.Flight;
+import com.flight.bean.Passenger;
 import com.flight.bean.Person;
 import com.flight.bean.Reservation;
 import com.flight.bean.Transportation;
@@ -107,6 +110,33 @@ public class ViewControl {
 					}
 					System.out.println("Please enter no of passengers:");
 					int noOfPass=s.nextInt();
+					System.out.println("Please enter passenger details:");
+					List<Passenger> pass=new ArrayList<>();
+					for(int i=0;i<noOfPass;i++)
+					{
+						System.out.println("For passenger:"+(i+1));
+						System.out.println("Please enter first name,last name, email, gender");
+						String fname=s.next();
+						String lname=s.next();
+						String email=s.next();
+						String gender=s.next();
+						System.out.println("Please enter address:country,state,city,street,unit,zipcode");
+						Address a=new Address();
+						a.setCountry(s.next());
+						a.setState(s.next());
+						a.setCity(s.next());
+						a.setStreet(s.next());
+						a.setUnit(s.nextInt());
+						a.setZipCode(s.nextInt());
+						p.setAddress(a);
+						System.out.println("Please enter passport number,visatype,tickettype and meal preference");
+						String passportNo=s.next();
+						String visaType=s.next();
+						String ticketType=s.next();
+						String mealType=s.next();
+						Passenger passenger=new Passenger(fname, lname, a, gender, null, email, null, passportNo, visaType, ticketType, mealType);
+						
+					}
 					System.out.println(t.getArrivalDate());
 					AvailableTransport at=v.viewDisplayList(t);
 					System.out.println("The flights suitable for you are:");
@@ -116,6 +146,8 @@ public class ViewControl {
 					}
 					System.out.println("Select your choice:");
 					int choice=s.nextInt();
+					Transportation transportation=at.getAvailList().get(choice);
+					
 					
 					
 					

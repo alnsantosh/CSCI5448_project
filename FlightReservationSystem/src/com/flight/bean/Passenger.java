@@ -8,6 +8,11 @@ public class Passenger extends Person {
 	private String ticketType;
 	private String mealType;
 	
+	public Passenger()
+	{
+		
+	}
+	
 	public Passenger(String firstName, String lastName, Address address, String gender, Date date, String email,
 			String password,String passportNo, String visaType, String ticketType, String mealType) {
 		super(firstName, lastName, address, gender, date, email, password);

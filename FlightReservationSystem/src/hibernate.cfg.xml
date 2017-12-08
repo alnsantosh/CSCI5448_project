@@ -29,6 +29,8 @@
 		<mapping class="com.flight.entity.PassengerEntity"/>
 		<mapping class="com.flight.entity.CustomerEntity"/>
 		<mapping class="com.flight.entity.TransportationEntity"/>
+		<mapping class="com.flight.entity.SelectedTransportEntity"/>
+		<mapping class="com.flight.entity.ReservationEntity"/>
 		
  
     </session-factory>

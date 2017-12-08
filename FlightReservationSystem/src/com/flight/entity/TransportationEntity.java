@@ -17,9 +17,10 @@ import javax.persistence.TemporalType;
 @Table(name="transportation")
 @Inheritance(strategy=InheritanceType.JOINED)
 public class TransportationEntity {
-	@Column(name="id")
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="id")
 	private int id;
 	@Column(name="airline")
 	private String airline;
@@ -41,6 +42,21 @@ public class TransportationEntity {
 	private String modelName;
 	@Column(name="noofseats")
 	private int noOfSeats;
+	@Column(name="seatsbooked")
+	private String seatsBooked=new String();
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getSeatsBooked() {
+		return seatsBooked;
+	}
+	public void setSeatsBooked(String seatsBooked) {
+		this.seatsBooked = seatsBooked;
+	}
 	public String getAirline() {
 		return airline;
 	}
