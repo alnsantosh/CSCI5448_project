@@ -46,7 +46,7 @@ CREATE TABLE flight_database.`Address` (
     );
     
     create table flight_database.`Transportation` (
-    `id` int(10) not null,
+    `id` int(10) not null auto_increment,
     `airline` varchar(50) default null,
     `aircraft` varchar(50) default null,
     `vesselno` varchar(50) default null,
@@ -56,17 +56,65 @@ CREATE TABLE flight_database.`Address` (
     `departuredate` datetime default null,
     `modelname` varchar(50),
     `noofseats` int(10),
+    `seatsbooked` varchar(50),
     primary key(`id`)
     );
     
-    insert into flight_database.`transportation` 
-    values(1,"BA","BA121","121","Denver","California","");
+    create table flight_database.`Flight_details` (
+    `id` int(10) not null auto_increment,
+    `airline` varchar(50) default null,
+    `aircraft` varchar(50) default null,
+    `vesselno` varchar(50) default null,
+    `sourceairport` varchar(50) default null,
+    `destinationairport` varchar(50) default null,
+    `arrivaldate` datetime default null,
+    `departuredate` datetime default null,
+    `modelname` varchar(50),
+    `noofseats` int(10),
+    `seatsbooked` varchar(50),
+    primary key(`id`)
+    );
     
-    create table flight_database. `Reservation`(
+    create table flight_database.`selectedtransport`(
+    `stid` int(10) not null auto_increment,
+    primary key(`stid`)
+    #FOREIGN KEY (`id`)  REFERENCES flight_database.reservation( `id`)
+    );
+    
+    create table flight_database.`reservation` (
+    `rid` int(10) not null auto_increment,
     `id` int(10) not null,
     `email` varchar(50) not null,
-    primary key(`id`, `email`)
+    primary key(`rid`),
+    FOREIGN KEY (`id`)  REFERENCES flight_database.`selectedtransport`(`stid`),
+    FOREIGN KEY (`email`)  REFERENCES flight_database.`customer`(`email`)
     );
+    
+    
+    
+    create table flight_database.`selected_transportation`(
+    `sid` int(10) not null,
+    `tid` int(10) not null,
+    primary key(`sid`,`tid`),
+    foreign key(`sid`) references `selectedtransport`(`stid`),
+    foreign key(`tid`) references `transportation`(`id`)
+    );
+    
+    insert into flight_database.`flight_details` 
+    values(1,"BA","BA121","121","Denver","California",
+    "2017-12-15 19:05:00","2017-12-15 22:05:00",
+    "BA",10,"");
+    insert into flight_database.`flight_details` 
+    values(2,"BA","BA242","242","Denver","California",
+    "2017-12-15 19:05:00","2017-12-15 22:05:00",
+    "BA",10,"");
+    insert into flight_database.`flight_details` 
+    values(3,"FA","FA121","121","London","California",
+    "2017-12-15 19:05:00","2017-12-15 22:05:00",
+    "BA",10,"");
+    
+    select * from flight_database.`flight_details`;
+    
     
     desc flight_database.person;
     
@@ -75,3 +123,21 @@ CREATE TABLE flight_database.`Address` (
     drop table flight_database.customer;
     
     drop table flight_database.passenger;
+    
+    drop table flight_database.transportation;
+    
+    drop table flight_database.reservation;
+    drop table flight_database.selected_transportation;
+    drop table flight_database.selectedtransport;
+    drop table flight_database.transportation;
+    
+    select * from flight_database.customer;
+    select * from flight_database.person;
+    select * from flight_database.transportation;
+    
+    select * from  flight_database.reservation;
+    select * from flight_database.selected_transportation;
+    select * from flight_database.selectedtransport;
+    select * from flight_database.transportation;
+    
+    
