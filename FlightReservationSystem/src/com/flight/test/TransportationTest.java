@@ -27,7 +27,7 @@ public class TransportationTest {
 		{
 			System.out.println("Creating Customer object");
 			AddressEntity a=new AddressEntity("Glenwood",6,"Boulder", "CO", "USA", 80304);
-			PersonEntity p=new PersonEntity("afirst", "blast", a, "M", new Date(2017,2, 11),"abcd20de11@gmail.com", "123456");
+			PersonEntity p=new PersonEntity("afirst", "blast", a, "M", new Date(2017,2, 11),"abc00de11@gmail.com", "123456");
 			
 			CustomerEntity ce=new CustomerEntity();
 			ce.setFirstName(p.getFirstName());
@@ -46,7 +46,7 @@ public class TransportationTest {
 				pe.setLastName(p.getLastName());
 				pe.setAddress(p.getAddress());
 				pe.setDate(p.getDate());
-				pe.setEmail("asdfqa12@gmail.com");
+				pe.setEmail("as1dfqa2@gmail.com");
 				pe.setGender(p.getGender());
 				pe.setPassword(p.getPassword());
 				pe.setMealType("Vegeterian");
@@ -92,15 +92,15 @@ public class TransportationTest {
 			session.getTransaction().commit();
 			System.out.println("Commit completed");
 			
-//			//primary id
-//			System.out.println("Flight Id:"+ce.getEmail());
-//			 //get a session and start transaction
-//			session=factory.getCurrentSession();
-//			session.beginTransaction();
-//			CustomerEntity f=session.get(CustomerEntity.class,ce.getEmail());
-//			System.out.println("Person:"+f);
-//			System.out.println(f.getFirstName()+f.getLastName()+f.getEmail()+f.getPassword());
-			session.getTransaction().commit();	
+			//primary id
+			System.out.println("Flight Id:"+re.getId());
+			 //get a session and start transaction
+			session=factory.getCurrentSession();
+			session.beginTransaction();
+			ReservationEntity f=session.get(ReservationEntity.class,re.getId());
+			System.out.println("Person:"+f);
+			System.out.println(f.getCustomer()+"\n"+f.getTransport());
+			//session.getTransaction().commit();	
 		}
 		catch(Exception e)
 		{

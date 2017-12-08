@@ -22,6 +22,8 @@ import com.flight.entity.AddressEntity;
 import com.flight.entity.CustomerEntity;
 import com.flight.entity.PassengerEntity;
 import com.flight.entity.PersonEntity;
+import com.flight.entity.ReservationEntity;
+import com.flight.entity.SelectedTransportEntity;
 import com.flight.entity.TransportationEntity;
 
 public class Database {
@@ -36,10 +38,67 @@ public class Database {
 		}
 		return factory;
 	}
-	public List<Reservation> addReservationtToDb(Reservation reservation)
+	public boolean addReservationtToDb(Reservation reservation)
 	{
+		try
+		{
+			factory=getDBTable();
+			Session session=factory.getCurrentSession();
+			session.beginTransaction();
+			ReservationEntity re=new ReservationEntity();
+			CustomerEntity ce=session.get(CustomerEntity.class,reservation.getCustomer().getEmail());
+			if(ce!=null)
+			{
+				SelectedTransportEntity ste=new SelectedTransportEntity();
+//				TransportationEntity te=new TransportationEntity();
+//				te.setAircraft(reservation.getTransport().getAircraft());
+//				te.setAirline(reservation.getTransport().getAirline());
+//				te.setArrivalDate(reservation.getTransport().getArrivalDate());
+//				te.setDepartureDate(reservation.getTransport().getDepartureDate());
+//				te.setDestinationAirpoty(reservation.getTransport().getDestinationAirpoty());
+//				te.setModelName(reservation.getTransport().getModelName());
+//				te.setNoOfSeats(reservation.getTransport().getNoOfSeats());
+//				te.setSeatsBooked(reservation.getTransport().getSeatsBooked());
+//				te.setSourceAirport(reservation.getTransport().getSourceAirport());
+//				te.setVesselNo(reservation.getTransport().getVesselNo());
+//				
+			
+				List<TransportationEntity> lte=new ArrayList<>();
+				List<Transportation> lt=reservation.getTransport().getSelectedList();
+				for(int i=0;i<lt.size();i++)
+				{
+					TransportationEntity te=new TransportationEntity();
+					te.setAircraft(lt.get(i).getAircraft());
+					te.setAirline(lt.get(i).getAirline());
+					te.setArrivalDate(lt.get(i).getArrivalDate());
+					te.setDepartureDate(lt.get(i).getDepartureDate());
+					te.setDestinationAirpoty(lt.get(i).getDestinationAirpoty());
+					te.setModelName(lt.get(i).getModelName());
+					te.setNoOfSeats(lt.get(i).getNoOfSeats());
+					te.setSeatsBooked(lt.get(i).getSeatsBooked());
+					te.setSourceAirport(lt.get(i).getSourceAirport());
+					te.setVesselNo(lt.get(i).getVesselNo());
+					lte.add(te);
+				}
+				ste.setSelectedList(lte);
+				re.setCustomer(ce);
+				re.setTransport(ste);
+				session.save(ste);
+				session.save(re);
+				session.getTransaction().commit();
+				return true;
+			}
+			
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		finally {
+			factory.close();
+		}
 		
-		return null;
+		return false;
 	}
 	@SuppressWarnings("finally")
 	public boolean addCustomerToDb(Customer customer)
@@ -150,7 +209,7 @@ public class Database {
 		//Query query=session.createQuery("from transportation where departuredate>="+departureDate);
 		//org.hibernate.Query q
 		//List<Transportation> list=query.l
-		Query query=session.createQuery("from TransportationEntity where departureDate>=:depdate");//+transport.getDepartureDate());
+		Query query=session.createQuery("from TransportationEntity where departureDate>=:depdate and sourceAirport='"+transport.getSourceAirport()+"'and destinationAirpoty='"+transport.getDestinationAirpoty()+"'");//+transport.getDepartureDate());
 		query.setDate("depdate", transport.getDepartureDate().getTime());
 		List<TransportationEntity> list1=query.list();
 		System.out.println(list1.get(0).getAircraft());

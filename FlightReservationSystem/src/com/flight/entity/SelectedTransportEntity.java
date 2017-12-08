@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -18,8 +19,7 @@ import com.flight.bean.Transportation;
 
 @Entity
 @Table(name="selectedtransport")
-@PrimaryKeyJoinColumn(name="id")
-public class SelectedTransportEntity extends TransportationEntity {
+public class SelectedTransportEntity{
 	@ManyToMany(cascade={CascadeType.ALL})
 	@JoinTable(
 			name="selected_transportation",
@@ -27,6 +27,7 @@ public class SelectedTransportEntity extends TransportationEntity {
 			inverseJoinColumns={@JoinColumn(name="tid")}
 			)
 	List<TransportationEntity> selectedList=new ArrayList<>();
+	@Id
 	@Column(name="stid")
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int stid;

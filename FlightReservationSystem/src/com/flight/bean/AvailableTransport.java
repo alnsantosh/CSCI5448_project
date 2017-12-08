@@ -1,10 +1,11 @@
 package com.flight.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AvailableTransport extends Transportation {
 	
-	private List<Transportation> availList;
+	private List<Transportation> availList=new ArrayList<>();
 	
 	public int returnAvailableSeats()
 	{

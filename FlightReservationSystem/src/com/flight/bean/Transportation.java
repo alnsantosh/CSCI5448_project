@@ -13,7 +13,17 @@ public class Transportation {
 	private Calendar departureDate;
 	private String modelName;
 	private int noOfSeats;
+	private String seatsBooked=new String();
 	
+	
+	public String getSeatsBooked() {
+		return seatsBooked;
+	}
+
+	public void setSeatsBooked(String seatsBooked) {
+		this.seatsBooked = seatsBooked;
+	}
+
 	public int returnAvailableSeats()
 	{
 		return 0;

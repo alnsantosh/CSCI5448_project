@@ -6,6 +6,15 @@ public class SelectedTransport extends Transportation {
 	
 	List<Transportation> selectedList;
 	
+	
+	public List<Transportation> getSelectedList() {
+		return selectedList;
+	}
+
+	public void setSelectedList(List<Transportation> selectedList) {
+		this.selectedList = selectedList;
+	}
+
 	public int returnAvailableSeats()
 	{
 		return 0;

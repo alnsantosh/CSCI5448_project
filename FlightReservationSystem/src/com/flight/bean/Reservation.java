@@ -6,8 +6,25 @@ import java.util.List;
 public class Reservation {
 	
 	public SelectedTransport transport;
-	public Passenger passenger;
+	public Customer customer;
 	
+	
+	public SelectedTransport getTransport() {
+		return transport;
+	}
+
+	public void setTransport(SelectedTransport transport) {
+		this.transport = transport;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
 	public void selectSeat(List<Flight> flights)
 	{
 		

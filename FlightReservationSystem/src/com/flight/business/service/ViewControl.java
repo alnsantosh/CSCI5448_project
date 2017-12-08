@@ -138,6 +138,9 @@ public class ViewControl {
 						
 					}
 					System.out.println(t.getArrivalDate());
+					System.out.println("Please enter source and destination");
+					t.setSourceAirport(s.next());
+					t.setDestinationAirpoty(s.next());
 					AvailableTransport at=v.viewDisplayList(t);
 					System.out.println("The flights suitable for you are:");
 					for(int i=0;i<at.getAvailList().size();i++)
@@ -147,6 +150,8 @@ public class ViewControl {
 					System.out.println("Select your choice:");
 					int choice=s.nextInt();
 					Transportation transportation=at.getAvailList().get(choice);
+					
+					
 					
 					
 					
