@@ -3,6 +3,8 @@ package com.flight.bean;
 import java.io.File;
 import java.util.List;
 
+import com.flight.business.service.ViewControl;
+
 public class Reservation {
 	
 	public SelectedTransport transport;

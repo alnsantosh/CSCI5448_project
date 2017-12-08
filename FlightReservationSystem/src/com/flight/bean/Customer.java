@@ -14,15 +14,23 @@ public class Customer extends Person {
 	private List<Passenger> passenger;
 	private int noOfReservation;
 	
+	public Customer()
+	{
+		
+	}
+	
+	
 	public boolean signUp(Person person)
 	{
 		ViewControl vc=new ViewControl();
 		return vc.viewSignUp(person);
 	}
-	public boolean login()
+	public Customer login(Person person)
 	{
-		return false;
-	}
+		ViewControl vc=new ViewControl();
+		return vc.viewLogin(person);
+		//return false;
+		}
 	public boolean signOut()
 	{
 		return false;

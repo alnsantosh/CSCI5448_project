@@ -1,10 +1,11 @@
 package com.flight.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SelectedTransport extends Transportation {
 	
-	List<Transportation> selectedList;
+	List<Transportation> selectedList=new ArrayList<>();
 	
 	
 	public List<Transportation> getSelectedList() {
@@ -27,12 +28,12 @@ public class SelectedTransport extends Transportation {
 	
 	public void addSelectedTransport(Transportation transport)
 	{
-		
+		selectedList.add(transport);
 	}
 	
 	public void removeSelectedTransport(Transportation transport)
 	{
-		
+		selectedList.remove(transport);
 	}
 	
 

@@ -14,6 +14,7 @@ import com.flight.bean.Flight;
 import com.flight.bean.Passenger;
 import com.flight.bean.Person;
 import com.flight.bean.Reservation;
+import com.flight.bean.SelectedTransport;
 import com.flight.bean.Transportation;
 import com.flight.dao.Database;
 
@@ -33,12 +34,12 @@ public class ViewControl {
 		
 	}
 	
-	public boolean viewLogin(Person person)
+	public Customer viewLogin(Person person)
 	{
-		d.signIn(person);
+		return d.signIn(person);
 		
 		
-		return false;
+		//return false;
 	}
 	
 	public boolean viewSignOut()
@@ -51,9 +52,9 @@ public class ViewControl {
 		
 	}
 	
-	public boolean viewConfirmReservation()
+	public boolean viewConfirmReservation(Reservation r)
 	{
-		return false;
+		return d.addReservationtToDb(r);
 	}
 	
 	public boolean viewQueryPassenger()
@@ -86,10 +87,17 @@ public class ViewControl {
 				Person p=new Person();
 				p.setEmail(s.next());
 				p.setPassword(s.next());
-				v.viewLogin(p);
-				
-				
+				//v.viewLogin(p);
+				Customer c=new Customer();
+				Customer customer=c.login(p);
 				//call signin
+				if(customer==null)
+				{
+					System.out.println("Please enter correct credentials");
+					continue;
+				}
+				System.out.println("Logged in successfully");
+				
 				Transportation t=new Transportation();
 				while(true)
 				{
@@ -150,13 +158,35 @@ public class ViewControl {
 					System.out.println("Select your choice:");
 					int choice=s.nextInt();
 					Transportation transportation=at.getAvailList().get(choice);
+					SelectedTransport st=new SelectedTransport();
+					st.addSelectedTransport(transportation);
+					Reservation r=new Reservation();
+					r.setTransport(st);
+					r.setCustomer(customer);
+					v.viewConfirmReservation(r);
+					if(selection==2)
+					{
+						System.out.println("The return flights avaiilable are:");
+						String dest=t.getDestinationAirpoty();
+						t.setDestinationAirpoty(t.getSourceAirport());
+						t.setSourceAirport(dest);
+						AvailableTransport at2=v.viewDisplayList(t);
+						for(int i=0;i<at2.getAvailList().size();i++)
+						{
+							System.out.println(i+1+")"+at2.getAvailList().get(i).getAircraft());
+						}
+						System.out.println("Select your choice:");
+						int choice2=s.nextInt();
+						Transportation transportation2=at.getAvailList().get(choice2);
+						SelectedTransport st2=new SelectedTransport();
+						st2.addSelectedTransport(transportation2);
+						Reservation r2=new Reservation();
+						r2.setTransport(st2);
+						r2.setCustomer(customer);
+						v.viewConfirmReservation(r2);
+					}
 					
-					
-					
-					
-					
-					
-					
+					System.out.println("Successfully booked the flight");
 					
 				}
 			}
@@ -199,7 +229,7 @@ public class ViewControl {
 				Admin a=new Admin();
 				a.setEmail(s.next());
 				a.setPassword(s.next());
-				if(v.viewLogin((Person)a))
+				if(v.viewLogin((Person)a)!=null)
 				{
 					while(true)
 					{

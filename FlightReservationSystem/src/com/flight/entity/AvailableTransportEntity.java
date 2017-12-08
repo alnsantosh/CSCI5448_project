@@ -1,5 +1,6 @@
 package com.flight.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,7 +23,7 @@ public class AvailableTransportEntity extends TransportationEntity{
 			joinColumns={@JoinColumn(name="aid")},
 			inverseJoinColumns={@JoinColumn(name="sid")}
 			)
-	private List<Transportation> availList;
+	private List<Transportation> availList=new ArrayList<>();
 
 	public List<Transportation> getAvailList() {
 		return availList;

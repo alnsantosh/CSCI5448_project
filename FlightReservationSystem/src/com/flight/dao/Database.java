@@ -44,7 +44,7 @@ public class Database {
 		{
 			factory=getDBTable();
 			Session session=factory.getCurrentSession();
-			session.beginTransaction();
+			//session.beginTransaction();
 			ReservationEntity re=new ReservationEntity();
 			CustomerEntity ce=session.get(CustomerEntity.class,reservation.getCustomer().getEmail());
 			if(ce!=null)
@@ -95,7 +95,7 @@ public class Database {
 			e.printStackTrace();
 		}
 		finally {
-			factory.close();
+			//factory.close();
 		}
 		
 		return false;
@@ -204,7 +204,9 @@ public class Database {
 	}
 	public AvailableTransport getFlightListFromDb(Transportation transport)
 	{
+		factory=getDBTable();
 		Session session=factory.getCurrentSession();
+		//session.beginTransaction();
 		Calendar c=Calendar.getInstance();
 		//Query query=session.createQuery("from transportation where departuredate>="+departureDate);
 		//org.hibernate.Query q
@@ -231,35 +233,67 @@ public class Database {
 		}
 		return at;
 	}
-	public boolean signIn(Person person)
+	public Customer signIn(Person person)
 	{
 //		PersonEntity pe=new PersonEntity();
 //		pe.setEmail(person.getEmail());
 //		pe.setPassword(person.getPassword());
-		factory=getDBTable();
-		Session session=factory.getCurrentSession();
-		session.beginTransaction();
-		PersonEntity pe=session.get(PersonEntity.class,person.getEmail());
-		if(pe!=null)
+		try
 		{
-			Address a=new Address();
-			a.setCity(pe.getAddress().getCity());
-			a.setCountry(pe.getAddress().getCountry());
-			a.setState(pe.getAddress().getState());
-			a.setStreet(pe.getAddress().getStreet());
-			a.setUnit(pe.getAddress().getUnit());
-			a.setZipCode(pe.getAddress().getUnit());
-			person.setAddress(a);
-			person.setDate(pe.getDate());
-			person.setFirstName(pe.getFirstName());
-			person.setGender(pe.getGender());
 			
-			return (pe.getPassword()==person.getPassword());
+		
+			factory=getDBTable();
+			Session session=factory.getCurrentSession();
+			session.beginTransaction();
+			PersonEntity pe=session.get(PersonEntity.class,person.getEmail());
+			CustomerEntity ce=session.get(CustomerEntity.class, person.getEmail());
+			if(pe!=null)
+			{
+				Address a=new Address();
+				a.setCity(pe.getAddress().getCity());
+				a.setCountry(pe.getAddress().getCountry());
+				a.setState(pe.getAddress().getState());
+				a.setStreet(pe.getAddress().getStreet());
+				a.setUnit(pe.getAddress().getUnit());
+				a.setZipCode(pe.getAddress().getUnit());
+				person.setAddress(a);
+				person.setDate(pe.getDate());
+				person.setFirstName(pe.getFirstName());
+				person.setGender(pe.getGender());
+				
+				Customer c=new Customer();
+				c.setAddress(a);
+				c.setDate(ce.getDate());
+				c.setEmail(ce.getEmail());
+				c.setFirstName(ce.getFirstName());
+				c.setGender(ce.getGender());
+				c.setLastName(ce.getLastName());
+				c.setNoOfReservation(ce.getNoOfReservation());
+	/*			List<PassengerEntity> lpe=ce.getPassenger();
+				for(int i=0;i<ce.getPassenger().size();i++)
+				{
+					PassengerEntity passe=lpe.get(i);
+					Passenger p=new Passenger();
+					p.setAddress(address);
+				} 
+	*/			c.setPassword(ce.getPassword());
+				
+				return c;//(pe.getPassword()==person.getPassword());
+			}
+			else
+			{
+				return null;
+			}
 		}
-		else
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		finally
 		{
-			return false;
+			//factory.close();
 		}
+		return null;
 		
 	}
 }
