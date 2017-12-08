@@ -20,6 +20,7 @@ import com.flight.bean.Reservation;
 import com.flight.bean.Transportation;
 import com.flight.entity.AddressEntity;
 import com.flight.entity.CustomerEntity;
+import com.flight.entity.FlightDetailsEntity;
 import com.flight.entity.PassengerEntity;
 import com.flight.entity.PersonEntity;
 import com.flight.entity.ReservationEntity;
@@ -211,14 +212,15 @@ public class Database {
 		//Query query=session.createQuery("from transportation where departuredate>="+departureDate);
 		//org.hibernate.Query q
 		//List<Transportation> list=query.l
-		Query query=session.createQuery("from TransportationEntity where departureDate>=:depdate and sourceAirport='"+transport.getSourceAirport()+"'and destinationAirpoty='"+transport.getDestinationAirpoty()+"'");//+transport.getDepartureDate());
+		//Query query=session.createQuery("from TransportationEntity where departureDate>=:depdate and sourceAirport='"+transport.getSourceAirport()+"'and destinationAirpoty='"+transport.getDestinationAirpoty()+"'");//+transport.getDepartureDate());
+		Query query=session.createQuery("from FlightDetailsEntity where departureDate>=:depdate and sourceAirport='"+transport.getSourceAirport()+"'and destinationAirpoty='"+transport.getDestinationAirpoty()+"'");
 		query.setDate("depdate", transport.getDepartureDate().getTime());
-		List<TransportationEntity> list1=query.list();
+		List<FlightDetailsEntity> list1=query.list();
 		System.out.println(list1.get(0).getAircraft());
 		AvailableTransport at=new AvailableTransport();
 		for(int i=0;i<list1.size();i++)
 		{
-			TransportationEntity te=list1.get(i);
+			FlightDetailsEntity te=list1.get(i);
 			Transportation t=new Transportation();
 			t.setAircraft(te.getAircraft());
 			t.setAirline(te.getAirline());

@@ -31,6 +31,7 @@
 		<mapping class="com.flight.entity.TransportationEntity"/>
 		<mapping class="com.flight.entity.SelectedTransportEntity"/>
 		<mapping class="com.flight.entity.ReservationEntity"/>
+		<mapping class="com.flight.entity.FlightDetailsEntity"/>
 		
  
     </session-factory>
