@@ -7,10 +7,18 @@ import com.flight.business.service.ViewControl;
 
 public class Reservation {
 	
-	public SelectedTransport transport;
-	public Customer customer;
+	public SelectedTransport transport=new SelectedTransport();
+	public Customer customer=new Customer();
+	private int id;
 	
-	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public SelectedTransport getTransport() {
 		return transport;
 	}

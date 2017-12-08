@@ -39,7 +39,7 @@ public class Database {
 		}
 		return factory;
 	}
-	public boolean addReservationtToDb(Reservation reservation)
+	public int addReservationtToDb(Reservation reservation)
 	{
 		try
 		{
@@ -63,7 +63,9 @@ public class Database {
 //				te.setSourceAirport(reservation.getTransport().getSourceAirport());
 //				te.setVesselNo(reservation.getTransport().getVesselNo());
 //				
-			
+				Query query=session.createQuery("select max(id)from ReservationEntity");
+				List q=query.list();
+				int id=(int)q.get(0);
 				List<TransportationEntity> lte=new ArrayList<>();
 				List<Transportation> lt=reservation.getTransport().getSelectedList();
 				for(int i=0;i<lt.size();i++)
@@ -87,8 +89,39 @@ public class Database {
 				session.save(ste);
 				session.save(re);
 				session.getTransaction().commit();
-				return true;
+				
+				return (id+1);
 			}
+			
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		finally {
+			//factory.close();
+		}
+		
+		return 0;
+	}
+	
+	public boolean deleteReservationtInDb(int rid)
+	{
+		try
+		{
+			factory=getDBTable();
+			Session session=factory.getCurrentSession();
+			session.beginTransaction();
+			ReservationEntity re=session.get(ReservationEntity.class,rid);
+			if(re!=null)
+			{
+				Query query=session.createQuery("delete from ReservationEntity where id="+rid);
+				int status=query.executeUpdate();
+				session.getTransaction().commit();
+				return true;
+				
+			}
+			return false;
 			
 		}
 		catch (Exception e) {
@@ -101,6 +134,8 @@ public class Database {
 		
 		return false;
 	}
+	
+	
 	@SuppressWarnings("finally")
 	public boolean addCustomerToDb(Customer customer)
 	{
@@ -297,5 +332,54 @@ public class Database {
 		}
 		return null;
 		
+	}
+	public List<Passenger> DisplayPassengers()
+	{
+		try
+		{
+			factory=getDBTable();
+			Session session=factory.getCurrentSession();
+			//session.beginTransaction();
+			
+			Query query=session.createQuery("from PassengerEntity");
+			List q=query.list();
+			List<Passenger> lp=new ArrayList<>();
+			for(int i=0;i<q.size();i++)
+			{
+				PassengerEntity pe=(PassengerEntity)q.get(i);
+				Passenger p=new Passenger();
+				p.setDate(pe.getDate());
+				p.setEmail(pe.getEmail());
+				p.setFirstName(pe.getFirstName());
+				p.setGender(pe.getGender());
+				p.setLastName(pe.getLastName());
+				p.setMealType(pe.getMealType());
+				p.setPassportNo(pe.getPassportNo());
+				p.setTicketType(pe.getTicketType());
+				p.setVisaType(pe.getVisaType());
+				Address a=new Address();
+				a.setCity(pe.getAddress().getCity());
+				a.setCountry(pe.getAddress().getCountry());
+				a.setState(pe.getAddress().getState());
+				a.setStreet(pe.getAddress().getStreet());
+				a.setUnit(pe.getAddress().getUnit());
+				a.setZipCode(pe.getAddress().getZipCode());
+				p.setAddress(a);
+				lp.add(p);
+				
+			}
+			session.getTransaction().commit();
+			return lp;
+			
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		finally {
+			//factory.close();
+		}
+		
+		return null;
 	}
 }

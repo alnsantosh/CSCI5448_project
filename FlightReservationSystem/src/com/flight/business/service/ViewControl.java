@@ -21,11 +21,7 @@ import com.flight.dao.Database;
 public class ViewControl {
 	Database d=new Database();
 	public ViewControl()
-	{
-		
-		
-		
-	}
+	{}
 	public boolean viewSignUp(Person person)
 	{
 		//Customer c=(Customer)person;
@@ -52,7 +48,7 @@ public class ViewControl {
 		
 	}
 	
-	public boolean viewConfirmReservation(Reservation r)
+	public int viewConfirmReservation(Reservation r)
 	{
 		return d.addReservationtToDb(r);
 	}
@@ -101,93 +97,113 @@ public class ViewControl {
 				Transportation t=new Transportation();
 				while(true)
 				{
-					System.out.println("Please let us know whether the trip is one way(1) or round trip(2), Press 1 or 2");
-					int selection=s.nextInt();
-					System.out.println("Please enter the departure date in yyyy-mm-dd :");
-					Calendar dep=Calendar.getInstance();
-					String[] str=s.next().split("-");
-					dep.set(Integer.parseInt(str[0]), Integer.parseInt(str[1]), Integer.parseInt(str[2]));
-					t.setDepartureDate(dep);
-					if(selection==2)
+					System.out.println("1)Book flight\n2)Cancel Flight");
+					int k=s.nextInt();
+					if(k==1)
 					{
-						System.out.println("Please enter the arrival date in yyyy-mm-dd :");
-						Calendar arr=Calendar.getInstance();
-						String[] str2=s.next().split("-");
-						arr.set(Integer.parseInt(str2[0]), Integer.parseInt(str2[1]), Integer.parseInt(str2[2]));
-						t.setArrivalDate(arr);
-					}
-					System.out.println("Please enter no of passengers:");
-					int noOfPass=s.nextInt();
-					System.out.println("Please enter passenger details:");
-					List<Passenger> pass=new ArrayList<>();
-					for(int i=0;i<noOfPass;i++)
-					{
-						System.out.println("For passenger:"+(i+1));
-						System.out.println("Please enter first name,last name, email, gender");
-						String fname=s.next();
-						String lname=s.next();
-						String email=s.next();
-						String gender=s.next();
-						System.out.println("Please enter address:country,state,city,street,unit,zipcode");
-						Address a=new Address();
-						a.setCountry(s.next());
-						a.setState(s.next());
-						a.setCity(s.next());
-						a.setStreet(s.next());
-						a.setUnit(s.nextInt());
-						a.setZipCode(s.nextInt());
-						p.setAddress(a);
-						System.out.println("Please enter passport number,visatype,tickettype and meal preference");
-						String passportNo=s.next();
-						String visaType=s.next();
-						String ticketType=s.next();
-						String mealType=s.next();
-						Passenger passenger=new Passenger(fname, lname, a, gender, null, email, null, passportNo, visaType, ticketType, mealType);
-						
-					}
-					System.out.println(t.getArrivalDate());
-					System.out.println("Please enter source and destination");
-					t.setSourceAirport(s.next());
-					t.setDestinationAirpoty(s.next());
-					AvailableTransport at=v.viewDisplayList(t);
-					System.out.println("The flights suitable for you are:");
-					for(int i=0;i<at.getAvailList().size();i++)
-					{
-						System.out.println(i+1+")"+at.getAvailList().get(i).getAircraft());
-					}
-					System.out.println("Select your choice:");
-					int choice=s.nextInt();
-					Transportation transportation=at.getAvailList().get(choice);
-					SelectedTransport st=new SelectedTransport();
-					st.addSelectedTransport(transportation);
-					Reservation r=new Reservation();
-					r.setTransport(st);
-					r.setCustomer(customer);
-					v.viewConfirmReservation(r);
-					if(selection==2)
-					{
-						System.out.println("The return flights avaiilable are:");
-						String dest=t.getDestinationAirpoty();
-						t.setDestinationAirpoty(t.getSourceAirport());
-						t.setSourceAirport(dest);
-						AvailableTransport at2=v.viewDisplayList(t);
-						for(int i=0;i<at2.getAvailList().size();i++)
+					
+					
+						System.out.println("Please let us know whether the trip is one way(1) or round trip(2), Press 1 or 2");
+						int selection=s.nextInt();
+						System.out.println("Please enter the departure date in yyyy-mm-dd :");
+						Calendar dep=Calendar.getInstance();
+						String[] str=s.next().split("-");
+						dep.set(Integer.parseInt(str[0]), Integer.parseInt(str[1]), Integer.parseInt(str[2]));
+						t.setDepartureDate(dep);
+						if(selection==2)
 						{
-							System.out.println(i+1+")"+at2.getAvailList().get(i).getAircraft());
+							System.out.println("Please enter the arrival date in yyyy-mm-dd :");
+							Calendar arr=Calendar.getInstance();
+							String[] str2=s.next().split("-");
+							arr.set(Integer.parseInt(str2[0]), Integer.parseInt(str2[1]), Integer.parseInt(str2[2]));
+							t.setArrivalDate(arr);
+						}
+						System.out.println("Please enter no of passengers:");
+						int noOfPass=s.nextInt();
+						System.out.println("Please enter passenger details:");
+						List<Passenger> pass=new ArrayList<>();
+						for(int i=0;i<noOfPass;i++)
+						{
+							System.out.println("For passenger:"+(i+1));
+							System.out.println("Please enter first name,last name, email, gender");
+							String fname=s.next();
+							String lname=s.next();
+							String email=s.next();
+							String gender=s.next();
+							System.out.println("Please enter address:country,state,city,street,unit,zipcode");
+							Address a=new Address();
+							a.setCountry(s.next());
+							a.setState(s.next());
+							a.setCity(s.next());
+							a.setStreet(s.next());
+							a.setUnit(s.nextInt());
+							a.setZipCode(s.nextInt());
+							p.setAddress(a);
+							System.out.println("Please enter passport number,visatype,tickettype and meal preference");
+							String passportNo=s.next();
+							String visaType=s.next();
+							String ticketType=s.next();
+							String mealType=s.next();
+							Passenger passenger=new Passenger(fname, lname, a, gender, null, email, null, passportNo, visaType, ticketType, mealType);
+							
+						}
+						System.out.println(t.getArrivalDate());
+						System.out.println("Please enter source and destination");
+						t.setSourceAirport(s.next());
+						t.setDestinationAirpoty(s.next());
+						AvailableTransport at=v.viewDisplayList(t);
+						System.out.println("The flights suitable for you are:");
+						for(int i=0;i<at.getAvailList().size();i++)
+						{
+							System.out.println(i+1+")"+at.getAvailList().get(i).getAircraft());
 						}
 						System.out.println("Select your choice:");
-						int choice2=s.nextInt();
-						Transportation transportation2=at.getAvailList().get(choice2);
-						SelectedTransport st2=new SelectedTransport();
-						st2.addSelectedTransport(transportation2);
-						Reservation r2=new Reservation();
-						r2.setTransport(st2);
-						r2.setCustomer(customer);
-						v.viewConfirmReservation(r2);
+						int choice=s.nextInt()-1;
+						Transportation transportation=at.getAvailList().get(choice);
+						SelectedTransport st=new SelectedTransport();
+						st.addSelectedTransport(transportation);
+						Reservation r=new Reservation();
+						r.setTransport(st);
+						r.setCustomer(customer);
+						int id=v.viewConfirmReservation(r);
+						if(selection==2)
+						{
+							System.out.println("The return flights avaiilable are:");
+							String dest=t.getDestinationAirpoty();
+							t.setDestinationAirpoty(t.getSourceAirport());
+							t.setSourceAirport(dest);
+							AvailableTransport at2=v.viewDisplayList(t);
+							for(int i=0;i<at2.getAvailList().size();i++)
+							{
+								System.out.println(i+1+")"+at2.getAvailList().get(i).getAircraft());
+							}
+							System.out.println("Select your choice:");
+							int choice2=s.nextInt();
+							Transportation transportation2=at.getAvailList().get(choice2);
+							SelectedTransport st2=new SelectedTransport();
+							st2.addSelectedTransport(transportation2);
+							Reservation r2=new Reservation();
+							r2.setTransport(st2);
+							r2.setCustomer(customer);
+							v.viewConfirmReservation(r2);
+						}
+						
+						System.out.println("Successfully booked the flight with reservation ID:"+id);
 					}
-					
-					System.out.println("Successfully booked the flight");
-					
+					else if(k==2)
+					{
+						System.out.println("Please enter your Reservation ID");
+						int id=s.nextInt();
+						if(v.d.deleteReservationtInDb(id))
+						{
+							System.out.println("Reservation has been cancelled");
+						}
+						else
+						{
+							System.out.println("Please enter a valid reservationn Id to cancel the reservation");
+						}
+						
+					}
 				}
 			}
 			else if(input==2)
@@ -231,19 +247,88 @@ public class ViewControl {
 				a.setPassword(s.next());
 				if(v.viewLogin((Person)a)!=null)
 				{
+					Transportation t=new Transportation();
 					while(true)
 					{
-						System.out.println("Please make a choice:\n1)Make a reservation\n2)Cancel a reservation\n3)Logout");
+						System.out.println("Please make a choice:\n1)Make a reservation\n2)Cancel a reservation\n3)Display Passengers\n4)Logout");
 						int choice=s.nextInt();
 						if(choice==1)
 						{
+							System.out.println("Please enter the departure date in yyyy-mm-dd :");
+							Calendar dep=Calendar.getInstance();
+							String[] str=s.next().split("-");
+							dep.set(Integer.parseInt(str[0]), Integer.parseInt(str[1]), Integer.parseInt(str[2]));
+							t.setDepartureDate(dep);
+							System.out.println("Please enter no of passengers:");
+							int noOfPass=s.nextInt();
+							System.out.println("Please enter passenger details:");
+							List<Passenger> pass=new ArrayList<>();
+							for(int i=0;i<noOfPass;i++)
+							{
+								System.out.println("For passenger:"+(i+1));
+								System.out.println("Please enter first name,last name, email, gender");
+								String fname=s.next();
+								String lname=s.next();
+								String email=s.next();
+								String gender=s.next();
+								System.out.println("Please enter address:country,state,city,street,unit,zipcode");
+								Address a2=new Address();
+								a2.setCountry(s.next());
+								a2.setState(s.next());
+								a2.setCity(s.next());
+								a2.setStreet(s.next());
+								a2.setUnit(s.nextInt());
+								a2.setZipCode(s.nextInt());
+								//p.setAddress(a2);
+								System.out.println("Please enter passport number,visatype,tickettype and meal preference");
+								String passportNo=s.next();
+								String visaType=s.next();
+								String ticketType=s.next();
+								String mealType=s.next();
+								Passenger passenger=new Passenger(fname, lname, a2, gender, null, email, null, passportNo, visaType, ticketType, mealType);
+								
+							}
+							System.out.println(t.getArrivalDate());
+							System.out.println("Please enter source and destination");
+							t.setSourceAirport(s.next());
+							t.setDestinationAirpoty(s.next());
+							AvailableTransport at=v.viewDisplayList(t);
+							System.out.println("The flights suitable for you are:");
+							for(int i=0;i<at.getAvailList().size();i++)
+							{
+								System.out.println(i+1+")"+at.getAvailList().get(i).getAircraft());
+							}
+							System.out.println("Select your choice:");
+							int choice2=s.nextInt()-1;
+							Transportation transportation=at.getAvailList().get(choice2);
+							SelectedTransport st=new SelectedTransport();
+							st.addSelectedTransport(transportation);
+							Reservation r=new Reservation();
+							r.setTransport(st);
+							r.setCustomer(new Customer("Santosh", "ALN", null, "M", null, "aln.santosh@gmail.com", "123456"));
+							int id=v.viewConfirmReservation(r);
 							
+							System.out.println("Successfully booked the flight with reservation ID:"+id);
+						
 						}
 						else if(choice==2)
 						{
-							
+							System.out.println("Please enter the Reservation ID");
+							int id=s.nextInt();
+							if(v.d.deleteReservationtInDb(id))
+							{
+								System.out.println("Reservation has been cancelled");
+							}
+							else
+							{
+								System.out.println("Please enter a valid reservation Id to cancel the reservation");
+							}
 						}
 						else if(choice==3)
+						{
+							
+						}
+						else if(choice==4)
 						{
 							break;
 						}
