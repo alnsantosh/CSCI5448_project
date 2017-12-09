@@ -12,6 +12,7 @@ import com.flight.bean.AvailableTransport;
 import com.flight.bean.Customer;
 import com.flight.bean.Flight;
 import com.flight.bean.Passenger;
+import com.flight.bean.Payment;
 import com.flight.bean.Person;
 import com.flight.bean.Reservation;
 import com.flight.bean.SelectedTransport;
@@ -20,8 +21,7 @@ import com.flight.dao.Database;
 
 public class ViewControl {
 	Database d=new Database();
-	public ViewControl()
-	{}
+	public ViewControl(){}
 	public boolean viewSignUp(Person person)
 	{
 		//Customer c=(Customer)person;
@@ -33,8 +33,6 @@ public class ViewControl {
 	public Customer viewLogin(Person person)
 	{
 		return d.signIn(person);
-		
-		
 		//return false;
 	}
 	
@@ -53,9 +51,9 @@ public class ViewControl {
 		return d.addReservationtToDb(r);
 	}
 	
-	public boolean viewQueryPassenger()
+	public List<Passenger> viewQueryPassenger()
 	{
-		return false;
+		return d.DisplayPassengers();
 	}
 	
 	public AvailableTransport viewDisplayList(Transportation transport)
@@ -97,7 +95,7 @@ public class ViewControl {
 				Transportation t=new Transportation();
 				while(true)
 				{
-					System.out.println("1)Book flight\n2)Cancel Flight");
+					System.out.println("1)Book flight\n2)Cancel Flight\n3.Exit");
 					int k=s.nextInt();
 					if(k==1)
 					{
@@ -159,6 +157,19 @@ public class ViewControl {
 						}
 						System.out.println("Select your choice:");
 						int choice=s.nextInt()-1;
+						
+						System.out.println("Please enter Credit/Debit card details for payment: CardType,CardNo,NameOnCard,CVV,ExpiryDate(yyyy-mm-dd)");
+						Payment pay=new Payment();
+						pay.setCardType(s.next());
+						s.nextInt();
+						pay.setNameOnCard(s.next());
+						pay.setCvv(s.nextInt());
+						Calendar arr=Calendar.getInstance();
+						String[] str2=s.next().split("-");
+						arr.set(Integer.parseInt(str2[0]), Integer.parseInt(str2[1]), Integer.parseInt(str2[2]));
+						pay.setExpirtDate(arr.getTime());
+						pay.setBillingAddress(c.getAddress());
+						
 						Transportation transportation=at.getAvailList().get(choice);
 						SelectedTransport st=new SelectedTransport();
 						st.addSelectedTransport(transportation);
@@ -188,6 +199,7 @@ public class ViewControl {
 							v.viewConfirmReservation(r2);
 						}
 						
+						
 						System.out.println("Successfully booked the flight with reservation ID:"+id);
 					}
 					else if(k==2)
@@ -203,6 +215,14 @@ public class ViewControl {
 							System.out.println("Please enter a valid reservationn Id to cancel the reservation");
 						}
 						
+					}
+					else if(k==3)
+					{
+						break;
+					}
+					else
+					{
+						System.out.println("Please make a valid choice");
 					}
 				}
 			}
@@ -245,6 +265,11 @@ public class ViewControl {
 				Admin a=new Admin();
 				a.setEmail(s.next());
 				a.setPassword(s.next());
+				if(!a.getEmail().equals("aln.santosh@gmail.com"))
+				{
+					System.out.println("Please enter valid credentials");
+					continue;
+				}
 				if(v.viewLogin((Person)a)!=null)
 				{
 					Transportation t=new Transportation();
@@ -300,6 +325,19 @@ public class ViewControl {
 							}
 							System.out.println("Select your choice:");
 							int choice2=s.nextInt()-1;
+							
+							System.out.println("Please enter Credit/Debit card details for payment: CardType,CardNo,NameOnCard,CVV,ExpiryDate(yyyy-mm-dd)");
+							Payment pay=new Payment();
+							pay.setCardType(s.next());
+							s.nextInt();
+							pay.setNameOnCard(s.next());
+							pay.setCvv(s.nextInt());
+							Calendar arr=Calendar.getInstance();
+							String[] str2=s.next().split("-");
+							arr.set(Integer.parseInt(str2[0]), Integer.parseInt(str2[1]), Integer.parseInt(str2[2]));
+							pay.setExpirtDate(arr.getTime());
+							//pay.setBillingAddress(c.getAddress());
+							
 							Transportation transportation=at.getAvailList().get(choice2);
 							SelectedTransport st=new SelectedTransport();
 							st.addSelectedTransport(transportation);
@@ -326,7 +364,27 @@ public class ViewControl {
 						}
 						else if(choice==3)
 						{
-							
+							System.out.println("The passengers present in the database are:");
+							List<Passenger> lp=v.viewQueryPassenger();
+							for(int i=0;i<lp.size();i++)
+							{
+								Passenger p=lp.get(i);
+								System.out.print("Passenger "+(i+1)+":");
+								System.out.print("\tFirstName: "+p.getFirstName());
+								System.out.print("\tLastName: "+p.getLastName());
+								System.out.print("\tEmail: "+p.getEmail());
+								System.out.print("\tGender: "+p.getGender());
+								System.out.print("\tPassportNo: "+p.getPassportNo());
+								System.out.print("\tTicketType: "+p.getTicketType());
+								System.out.print("\tVisaType: "+p.getVisaType());
+								System.out.println("\tAddress: "+p.getAddress().getUnit()+","+p.getAddress().getStreet()+","+p.getAddress().getCity()+","+p.getAddress().getState()+","+p.getAddress().getCountry()+","+p.getAddress().getZipCode());
+							}
+							try {
+								Thread.sleep(5000);
+							} catch (InterruptedException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						}
 						else if(choice==4)
 						{

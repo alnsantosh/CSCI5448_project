@@ -2,6 +2,8 @@ package com.flight.bean;
 
 import java.util.Date;
 
+import com.flight.business.service.ViewControl;
+
 public class Payment {
 	
 	private String cardType;
@@ -9,6 +11,11 @@ public class Payment {
 	private int cvv;
 	private String nameOnCard;
 	private Address billingAddress;
+	
+	public Payment()
+	{
+		
+	}
 	
 	public Payment(String cardType, Date expirtDate, int cvv, String nameOnCard, Address billingAddress) {
 		super();
@@ -21,6 +28,7 @@ public class Payment {
 	
 	public void makePayment(Reservation reservation)
 	{
+		ViewControl vc=new ViewControl();
 		
 	}
 
