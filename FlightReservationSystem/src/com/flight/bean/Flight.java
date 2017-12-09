@@ -1,6 +1,6 @@
 package com.flight.bean;
 
-public class Flight extends Reservation {
+public class Flight extends Transportation {
 	
 	public int returnAvailableSeats()
 	{

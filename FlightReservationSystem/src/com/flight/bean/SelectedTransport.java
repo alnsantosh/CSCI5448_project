@@ -18,6 +18,11 @@ public class SelectedTransport extends Transportation {
 
 	public int returnAvailableSeats()
 	{
+		for(Transportation t: selectedList)
+		{
+			t.returnAvailableSeats();
+		}
+		
 		return 0;
 	}
 	

@@ -3,6 +3,7 @@ package com.flight.dao;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.stream.Collectors;
 
 //import javax.persistence.Query;
 
@@ -17,6 +18,7 @@ import com.flight.bean.Customer;
 import com.flight.bean.Passenger;
 import com.flight.bean.Person;
 import com.flight.bean.Reservation;
+import com.flight.bean.SelectedTransport;
 import com.flight.bean.Transportation;
 import com.flight.entity.AddressEntity;
 import com.flight.entity.CustomerEntity;
@@ -30,12 +32,23 @@ import com.flight.entity.TransportationEntity;
 public class Database {
 	
 	private static SessionFactory factory;
-	
+	private static Session session;
 	public static synchronized SessionFactory getDBTable()
 	{
 		if(factory==null)
 		{
 			factory=new Configuration().configure().buildSessionFactory();
+			//session=factory.getCurrentSession();
+			//session.beginTransaction();
+		}
+		if(session==null)
+			session=factory.getCurrentSession();
+//		if(!session.isConnected())
+//			session=factory.getCurrentSession();
+		if(!session.getTransaction().isActive())
+		{
+			session=factory.getCurrentSession();
+			session.beginTransaction();
 		}
 		return factory;
 	}
@@ -44,7 +57,7 @@ public class Database {
 		try
 		{
 			factory=getDBTable();
-			Session session=factory.getCurrentSession();
+			//Session session=factory.getCurrentSession();
 			//session.beginTransaction();
 			ReservationEntity re=new ReservationEntity();
 			CustomerEntity ce=session.get(CustomerEntity.class,reservation.getCustomer().getEmail());
@@ -62,6 +75,10 @@ public class Database {
 //				te.setSeatsBooked(reservation.getTransport().getSeatsBooked());
 //				te.setSourceAirport(reservation.getTransport().getSourceAirport());
 //				te.setVesselNo(reservation.getTransport().getVesselNo());
+				
+//				Customer c=reservation.getCustomer();
+//				CustomerEntity ce=new CustomerEntity();
+//				ce.set
 //				
 				Query query=session.createQuery("select max(id)from ReservationEntity");
 				List q=query.list();
@@ -87,6 +104,7 @@ public class Database {
 				re.setCustomer(ce);
 				re.setTransport(ste);
 				session.save(ste);
+				
 				session.save(re);
 				session.getTransaction().commit();
 				
@@ -100,6 +118,8 @@ public class Database {
 		}
 		finally {
 			//factory.close();
+			factory=null;
+			session=null;
 		}
 		
 		return 0;
@@ -110,8 +130,8 @@ public class Database {
 		try
 		{
 			factory=getDBTable();
-			Session session=factory.getCurrentSession();
-			session.beginTransaction();
+			//Session session=factory.getCurrentSession();
+			//session.beginTransaction();
 			ReservationEntity re=session.get(ReservationEntity.class,rid);
 			if(re!=null)
 			{
@@ -130,6 +150,83 @@ public class Database {
 		}
 		finally {
 			//factory.close();
+			factory=null;
+			session=null;
+		}
+		
+		return false;
+	}
+	
+	public Reservation getReservationDetails(int rid)
+	{
+		try
+		{
+			factory=getDBTable();
+			//Session session=factory.getCurrentSession();
+			//session.beginTransaction();
+			ReservationEntity re=session.get(ReservationEntity.class,rid);
+			if(re!=null)
+			{
+				Reservation r=new Reservation();
+				Customer c=new Customer();
+				c.setEmail(re.getCustomer().getEmail());
+				r.setCustomer(c);
+				SelectedTransport st=new SelectedTransport();
+				List<TransportationEntity> lste=re.getTransport().getSelectedList();
+                List<Transportation> list = lste.stream().map(te -> {
+                	Transportation transportation = new Transportation();
+                	transportation.setDepartureDate(te.getDepartureDate());
+                	return transportation;
+                }).collect(Collectors.toList());
+                st.setSelectedList(list);
+                r.setTransport(st);
+                return r;
+				
+				
+			}
+			return null;
+			
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		finally {
+			//factory.close();
+			factory=null;
+			session=null;
+		}
+		
+		return null;
+	}
+	
+	public boolean updateReservationtInDb(int rid)
+	{
+		try
+		{
+			factory=getDBTable();
+			//Session session=factory.getCurrentSession();
+			//session.beginTransaction();
+			ReservationEntity re=session.get(ReservationEntity.class,rid);
+			if(re!=null)
+			{
+				Query query=session.createQuery("update ReservationEntity set  where id="+rid);
+				int status=query.executeUpdate();
+				session.getTransaction().commit();
+				return true;
+				
+			}
+			return false;
+			
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		finally {
+			//factory.close();
+			factory=null;
+			session=null;
 		}
 		
 		return false;
@@ -142,7 +239,7 @@ public class Database {
 		try{
 			factory=getDBTable();
 			Session session=factory.getCurrentSession();
-			session.beginTransaction();
+			//session.beginTransaction();
 			CustomerEntity ce=new CustomerEntity();
 			ce.setDate(customer.getDate());
 			ce.setEmail(customer.getEmail());
@@ -206,7 +303,9 @@ public class Database {
 			e.printStackTrace();
 		}
 		finally {
-			factory.close();
+			//factory.close();
+			factory=null;
+			session=null;
 		}
 		return false;
 		
@@ -216,8 +315,8 @@ public class Database {
 		try
 		{
 			factory=getDBTable();
-			Session session=factory.getCurrentSession();
-			session.beginTransaction();
+			//Session session=factory.getCurrentSession();
+			//session.beginTransaction();
 			CustomerEntity ce=session.get(CustomerEntity.class,customer.getEmail());
 			if(ce!=null)
 			{
@@ -234,14 +333,16 @@ public class Database {
 			e.printStackTrace();
 		}
 		finally {
-			factory.close();
+			//factory.close();
+			factory=null;
+			session=null;
 		}
 		return false;
 	}
 	public AvailableTransport getFlightListFromDb(Transportation transport)
 	{
 		factory=getDBTable();
-		Session session=factory.getCurrentSession();
+		//Session session=factory.getCurrentSession();
 		//session.beginTransaction();
 		Calendar c=Calendar.getInstance();
 		//Query query=session.createQuery("from transportation where departuredate>="+departureDate);
@@ -266,8 +367,12 @@ public class Database {
 			t.setNoOfSeats(te.getNoOfSeats());
 			t.setSourceAirport(te.getSourceAirport());
 			t.setVesselNo(te.getVesselNo());
+			t.setId(te.getId());
 			at.addAvailTransport(t);
+			
 		}
+		factory=null;
+		session=null;
 		return at;
 	}
 	public Customer signIn(Person person)
@@ -281,7 +386,7 @@ public class Database {
 		
 			factory=getDBTable();
 			Session session=factory.getCurrentSession();
-			session.beginTransaction();
+			//session.beginTransaction();
 			PersonEntity pe=session.get(PersonEntity.class,person.getEmail());
 			CustomerEntity ce=session.get(CustomerEntity.class, person.getEmail());
 			if(pe!=null)
@@ -329,6 +434,8 @@ public class Database {
 		finally
 		{
 			//factory.close();
+			factory=null;
+			session=null;
 		}
 		return null;
 		
@@ -338,7 +445,7 @@ public class Database {
 		try
 		{
 			factory=getDBTable();
-			Session session=factory.getCurrentSession();
+			//Session session=factory.getCurrentSession();
 			//session.beginTransaction();
 			
 			Query query=session.createQuery("from PassengerEntity");
@@ -378,6 +485,8 @@ public class Database {
 		}
 		finally {
 			//factory.close();
+			factory=null;
+			session=null;
 		}
 		
 		return null;

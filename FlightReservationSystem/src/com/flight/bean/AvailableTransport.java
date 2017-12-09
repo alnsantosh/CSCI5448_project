@@ -9,6 +9,10 @@ public class AvailableTransport extends Transportation {
 	
 	public int returnAvailableSeats()
 	{
+		for(Transportation t: availList)
+		{
+			t.returnAvailableSeats();
+		}
 		return 0;
 	}
 	

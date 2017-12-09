@@ -3,7 +3,7 @@ package com.flight.bean;
 import java.util.Calendar;
 
 public class Transportation {
-	
+	private int id;
 	private String airline;
 	private String aircraft;
 	private String vesselNo;
@@ -16,6 +16,16 @@ public class Transportation {
 	private String seatsBooked=new String();
 	
 	
+	
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
 	public String getSeatsBooked() {
 		return seatsBooked;
 	}

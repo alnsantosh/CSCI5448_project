@@ -95,7 +95,7 @@ public class ViewControl {
 				Transportation t=new Transportation();
 				while(true)
 				{
-					System.out.println("1)Book flight\n2)Cancel Flight\n3.Exit");
+					System.out.println("1)Book flight\n2)Cancel Flight\n3)Modify Class\n4)Checkin\n5)Exit");
 					int k=s.nextInt();
 					if(k==1)
 					{
@@ -143,7 +143,7 @@ public class ViewControl {
 							String ticketType=s.next();
 							String mealType=s.next();
 							Passenger passenger=new Passenger(fname, lname, a, gender, null, email, null, passportNo, visaType, ticketType, mealType);
-							
+							pass.add(passenger);
 						}
 						System.out.println(t.getArrivalDate());
 						System.out.println("Please enter source and destination");
@@ -171,6 +171,15 @@ public class ViewControl {
 						pay.setBillingAddress(c.getAddress());
 						
 						Transportation transportation=at.getAvailList().get(choice);
+						
+						//Seats booking
+//						String seats=transportation.getSeatsBooked();
+//						if(seats.equals(""))
+//						{
+//							System.out.println("Please select a seat between 1 to 10");
+//						}
+						
+						//
 						SelectedTransport st=new SelectedTransport();
 						st.addSelectedTransport(transportation);
 						Reservation r=new Reservation();
@@ -217,6 +226,42 @@ public class ViewControl {
 						
 					}
 					else if(k==3)
+					{
+						System.out.println("Please enter your Reservation ID");
+						int id=s.nextInt();
+						Reservation reservation=v.d.getReservationDetails(id);
+						if(reservation.getTransport().getSelectedList().get(0).getClass().equals("Economy"))
+						{
+							System.out.println("Please press 1 to change class to Business from Economy");
+						}
+						else
+							System.out.println("Please press 1 to change class to Economy from Business");
+						if(s.nextInt()==1)
+						{
+							System.out.println("Changes have been made accordingly");
+						}
+						else
+						{
+							System.out.println("You have given wrong input.No changes has been made");
+						}
+					}
+					else if(k==4)
+					{
+						System.out.println("Please enter your Reservation ID");
+						int id=s.nextInt();
+						Reservation reservation=v.d.getReservationDetails(id);
+						Calendar cal=reservation.getTransport().getSelectedList().get(0).getDepartureDate();
+						Calendar current=Calendar.getInstance();
+						if(cal.getTimeInMillis()-current.getTimeInMillis()<=86400000)
+						{
+							System.out.println("Checked in and boarding pass has been mailed");
+						}
+						else
+						{
+							System.out.println("Checkin can only be done before 24hrs from the time of departure");
+						}
+					}
+					else if(k==5)
 					{
 						break;
 					}
