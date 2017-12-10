@@ -34,11 +34,6 @@ public class PersonTest {
 			System.out.println("Flight Id:"+p.getEmail());
 			 //get a session and start transaction
 			session=factory.getCurrentSession();
-			session.beginTransaction();
-			PersonEntity f=session.get(PersonEntity.class,p.getEmail());
-			System.out.println("Person:"+f);
-			System.out.println(f.getFirstName()+f.getLastName()+f.getEmail()+f.getPassword());
-			session.getTransaction().commit();	
 		}
 		catch(Exception e)
 		{
