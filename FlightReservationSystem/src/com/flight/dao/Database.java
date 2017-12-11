@@ -82,7 +82,12 @@ public class Database {
 //				
 				Query query=session.createQuery("select max(id)from ReservationEntity");
 				List q=query.list();
-				int id=(int)q.get(0);
+				int id=0;
+				
+				if(q.get(0)!=null)
+				{
+					id=(int)q.get(0);
+				}
 				List<TransportationEntity> lte=new ArrayList<>();
 				List<Transportation> lt=reservation.getTransport().getSelectedList();
 				for(int i=0;i<lt.size();i++)

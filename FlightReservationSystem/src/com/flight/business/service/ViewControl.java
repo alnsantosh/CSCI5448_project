@@ -163,10 +163,28 @@ public class ViewControl {
 							
 							System.out.println("Please enter Credit/Debit card details for payment: CardType,CardNo,NameOnCard,CVV,ExpiryDate(yyyy-mm-dd)");
 							Payment pay=new Payment();
+							
+							System.out.println("Please Enter the Card type:");
 							pay.setCardType(s.next());
-							s.nextInt();
+							while(true)
+							{
+							    try {
+							    //	s=new Scanner(System.in);
+									s.nextInt();
+									break;
+								}
+								catch(Exception e)
+								{
+									System.out.println("Please Enter A Valid Card Number!! \n");
+									s.next();
+									continue;
+								}
+							}
+							System.out.println("Please Enter the Name on the Card:");
 							pay.setNameOnCard(s.next());
+							System.out.println("Please Enter the CVV:");
 							pay.setCvv(s.nextInt());
+							System.out.println("Please Enter the Expiration date:");
 							Calendar arr=Calendar.getInstance();
 							String[] str2=s.next().split("-");
 							arr.set(Integer.parseInt(str2[0]), Integer.parseInt(str2[1]), Integer.parseInt(str2[2]));
