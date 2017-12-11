@@ -362,6 +362,11 @@ public class Database {
 			t.setAirline(te.getAirline());
 			t.setArrivalDate(te.getArrivalDate());
 			t.setDepartureDate(te.getDepartureDate());
+			t.setDestinationAirpoty(te.getDestinationAirpoty());
+			t.setModelName(te.getModelName());
+			t.setNoOfSeats(te.getNoOfSeats());
+			t.setSourceAirport(te.getSourceAirport());
+			t.setVesselNo(te.getVesselNo());
 			t.setId(te.getId());
 			at.addAvailTransport(t);
 			
@@ -397,7 +402,15 @@ public class Database {
 				person.setDate(pe.getDate());
 				person.setFirstName(pe.getFirstName());
 				person.setGender(pe.getGender());
-			
+				
+				Customer c=new Customer();
+				c.setAddress(a);
+				c.setDate(ce.getDate());
+				c.setEmail(ce.getEmail());
+				c.setFirstName(ce.getFirstName());
+				c.setGender(ce.getGender());
+				c.setLastName(ce.getLastName());
+				c.setNoOfReservation(ce.getNoOfReservation());
 	/*			List<PassengerEntity> lpe=ce.getPassenger();
 				for(int i=0;i<ce.getPassenger().size();i++)
 				{
@@ -451,7 +464,15 @@ public class Database {
 				p.setPassportNo(pe.getPassportNo());
 				p.setTicketType(pe.getTicketType());
 				p.setVisaType(pe.getVisaType());
-
+				Address a=new Address();
+				a.setCity(pe.getAddress().getCity());
+				a.setCountry(pe.getAddress().getCountry());
+				a.setState(pe.getAddress().getState());
+				a.setStreet(pe.getAddress().getStreet());
+				a.setUnit(pe.getAddress().getUnit());
+				a.setZipCode(pe.getAddress().getZipCode());
+				p.setAddress(a);
+				lp.add(p);
 				
 			}
 			session.getTransaction().commit();
