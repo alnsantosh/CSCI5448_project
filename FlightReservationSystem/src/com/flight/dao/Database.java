@@ -110,6 +110,9 @@ public class Database {
 				session.save(ste);
 				
 				session.save(re);
+				
+				Query que=session.createQuery("update FlightDetailsEntity set noOfSeats=noOfSeats-1 where aircraft='"+re.getTransport().getSelectedList().get(0).getAircraft()+"'");
+				int status=que.executeUpdate();
 				session.getTransaction().commit();
 				
 				return (id+1);
@@ -180,6 +183,7 @@ public class Database {
                 List<Transportation> list = lste.stream().map(te -> {
                 	Transportation transportation = new Transportation();
                 	transportation.setDepartureDate(te.getDepartureDate());
+                	transportation.setId(te.getId());
                 	return transportation;
                 }).collect(Collectors.toList());
                 st.setSelectedList(list);
@@ -204,7 +208,7 @@ public class Database {
 		return null;
 	}
 	
-	public boolean updateReservationtInDb(int rid)
+	public boolean updateReservationtInDb(int rid) ///have to complete this function
 	{
 		try
 		{
@@ -361,6 +365,8 @@ public class Database {
 		for(int i=0;i<list1.size();i++)
 		{
 			FlightDetailsEntity te=list1.get(i);
+			if(te.getNoOfSeats()==0)
+				continue;
 			Transportation t=new Transportation();
 			t.setAircraft(te.getAircraft());
 			t.setAirline(te.getAirline());
@@ -500,7 +506,9 @@ public class Database {
 		try
 		{
 			factory=getDBTable();
+			System.out.println("Transportation:"+transportation.getId());//need to get an ID from 
 			FlightDetailsEntity te=session.get(FlightDetailsEntity.class,transportation.getId());
+			System.out.println(te.getId()+":ID");
 			if(te.getSeatsBooked().equals(""))
 			{
 				System.out.println("Please enter the seats that you want to book between 1 and 10");

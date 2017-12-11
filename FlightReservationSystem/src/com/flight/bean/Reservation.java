@@ -3,7 +3,7 @@ package com.flight.bean;
 import java.io.File;
 import java.util.List;
 
-import com.flight.business.service.ViewControl;
+import com.flight.business.service.ViewControl2;
 
 public class Reservation {
 	

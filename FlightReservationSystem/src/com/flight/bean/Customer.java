@@ -3,7 +3,7 @@ package com.flight.bean;
 import java.util.Date;
 import java.util.List;
 
-import com.flight.business.service.ViewControl;
+import com.flight.business.service.ViewControl2;
 
 public class Customer extends Person {
 	public Customer(String firstName, String lastName, Address address, String gender, Date date, String email,
@@ -22,12 +22,12 @@ public class Customer extends Person {
 	
 	public boolean signUp(Person person)
 	{
-		ViewControl vc=new ViewControl();
+		ViewControl2 vc=new ViewControl2();
 		return vc.viewSignUp(person);
 	}
 	public Customer login(Person person)
 	{
-		ViewControl vc=new ViewControl();
+		ViewControl2 vc=new ViewControl2();
 		return vc.viewLogin(person);
 		//return false;
 		}

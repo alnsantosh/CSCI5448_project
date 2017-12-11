@@ -2,7 +2,7 @@ package com.flight.bean;
 
 import java.util.Date;
 
-import com.flight.business.service.ViewControl;
+import com.flight.business.service.ViewControl2;
 
 public class Payment {
 	
@@ -28,7 +28,7 @@ public class Payment {
 	
 	public void makePayment(Reservation reservation)
 	{
-		ViewControl vc=new ViewControl();
+		ViewControl2 vc=new ViewControl2();
 		
 	}
 

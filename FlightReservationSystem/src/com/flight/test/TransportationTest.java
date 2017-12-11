@@ -27,7 +27,7 @@ public class TransportationTest {
 		{
 			System.out.println("Creating Customer object");
 			AddressEntity a=new AddressEntity("Glenwood",6,"Boulder", "CO", "USA", 80304);
-			PersonEntity p=new PersonEntity("afirst", "blast", a, "M", new Date(2017,2, 11),"abc00de11@gmail.com", "123456");
+			PersonEntity p=new PersonEntity("afirst", "blast", a, "M", new Date(2017,2, 11),"abc123qaz@gmail.com", "123456");
 			
 			CustomerEntity ce=new CustomerEntity();
 			ce.setFirstName(p.getFirstName());
@@ -46,7 +46,7 @@ public class TransportationTest {
 				pe.setLastName(p.getLastName());
 				pe.setAddress(p.getAddress());
 				pe.setDate(p.getDate());
-				pe.setEmail("as1dfqa2@gmail.com");
+				pe.setEmail("as1dlalalfqa2@gmail.com");
 				pe.setGender(p.getGender());
 				pe.setPassword(p.getPassword());
 				pe.setMealType("Vegeterian");

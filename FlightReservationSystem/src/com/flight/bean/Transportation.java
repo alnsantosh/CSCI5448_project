@@ -2,6 +2,8 @@ package com.flight.bean;
 
 import java.util.Calendar;
 
+import com.flight.dao.Database;
+
 public class Transportation {
 	private int id;
 	private String airline;
@@ -36,6 +38,7 @@ public class Transportation {
 
 	public int returnAvailableSeats()
 	{
+		Database d=new Database();
 		return 0;
 	}
 	
