@@ -352,7 +352,11 @@ public class Database {
 		Query query=session.createQuery("from FlightDetailsEntity where departureDate>=:depdate and sourceAirport='"+transport.getSourceAirport()+"'and destinationAirpoty='"+transport.getDestinationAirpoty()+"'");
 		query.setDate("depdate", transport.getDepartureDate().getTime());
 		List<FlightDetailsEntity> list1=query.list();
-		System.out.println(list1.get(0).getAircraft());
+		//System.out.println(list1.get(0).getAircraft());
+		if(list1.size()==0)
+		{
+			return null;
+		}
 		AvailableTransport at=new AvailableTransport();
 		for(int i=0;i<list1.size();i++)
 		{

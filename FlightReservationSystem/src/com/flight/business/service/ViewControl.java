@@ -150,66 +150,75 @@ public class ViewControl {
 						t.setSourceAirport(s.next());
 						t.setDestinationAirpoty(s.next());
 						AvailableTransport at=v.viewDisplayList(t);
-						System.out.println("The flights suitable for you are:");
-						for(int i=0;i<at.getAvailList().size();i++)
+						if(at!=null)
 						{
-							System.out.println(i+1+")"+at.getAvailList().get(i).getAircraft());
-						}
-						System.out.println("Select your choice:");
-						int choice=s.nextInt()-1;
-						
-						System.out.println("Please enter Credit/Debit card details for payment: CardType,CardNo,NameOnCard,CVV,ExpiryDate(yyyy-mm-dd)");
-						Payment pay=new Payment();
-						pay.setCardType(s.next());
-						s.nextInt();
-						pay.setNameOnCard(s.next());
-						pay.setCvv(s.nextInt());
-						Calendar arr=Calendar.getInstance();
-						String[] str2=s.next().split("-");
-						arr.set(Integer.parseInt(str2[0]), Integer.parseInt(str2[1]), Integer.parseInt(str2[2]));
-						pay.setExpirtDate(arr.getTime());
-						pay.setBillingAddress(c.getAddress());
-						
-						Transportation transportation=at.getAvailList().get(choice);
-						
-						//Seats booking
-//						String seats=transportation.getSeatsBooked();
-//						if(seats.equals(""))
-//						{
-//							System.out.println("Please select a seat between 1 to 10");
-//						}
-						
-						//
-						SelectedTransport st=new SelectedTransport();
-						st.addSelectedTransport(transportation);
-						Reservation r=new Reservation();
-						r.setTransport(st);
-						r.setCustomer(customer);
-						int id=v.viewConfirmReservation(r);
-						if(selection==2)
-						{
-							System.out.println("The return flights avaiilable are:");
-							String dest=t.getDestinationAirpoty();
-							t.setDestinationAirpoty(t.getSourceAirport());
-							t.setSourceAirport(dest);
-							AvailableTransport at2=v.viewDisplayList(t);
-							for(int i=0;i<at2.getAvailList().size();i++)
+							System.out.println("The flights suitable for you are:");
+							
+							for(int i=0;i<at.getAvailList().size();i++)
 							{
-								System.out.println(i+1+")"+at2.getAvailList().get(i).getAircraft());
+								System.out.println(i+1+")"+at.getAvailList().get(i).getAircraft());
 							}
 							System.out.println("Select your choice:");
-							int choice2=s.nextInt();
-							Transportation transportation2=at.getAvailList().get(choice2);
-							SelectedTransport st2=new SelectedTransport();
-							st2.addSelectedTransport(transportation2);
-							Reservation r2=new Reservation();
-							r2.setTransport(st2);
-							r2.setCustomer(customer);
-							v.viewConfirmReservation(r2);
+							int choice=s.nextInt()-1;
+							
+							System.out.println("Please enter Credit/Debit card details for payment: CardType,CardNo,NameOnCard,CVV,ExpiryDate(yyyy-mm-dd)");
+							Payment pay=new Payment();
+							pay.setCardType(s.next());
+							s.nextInt();
+							pay.setNameOnCard(s.next());
+							pay.setCvv(s.nextInt());
+							Calendar arr=Calendar.getInstance();
+							String[] str2=s.next().split("-");
+							arr.set(Integer.parseInt(str2[0]), Integer.parseInt(str2[1]), Integer.parseInt(str2[2]));
+							pay.setExpirtDate(arr.getTime());
+							pay.setBillingAddress(c.getAddress());
+							
+							Transportation transportation=at.getAvailList().get(choice);
+							
+							//Seats booking
+//							String seats=transportation.getSeatsBooked();
+//							if(seats.equals(""))
+//							{
+//								System.out.println("Please select a seat between 1 to 10");
+//							}
+							
+							//
+							SelectedTransport st=new SelectedTransport();
+							st.addSelectedTransport(transportation);
+							Reservation r=new Reservation();
+							r.setTransport(st);
+							r.setCustomer(customer);
+							int id=v.viewConfirmReservation(r);
+//							if(selection==2)
+//							{
+//								System.out.println("The return flights avaiilable are:");
+//								String dest=t.getDestinationAirpoty();
+//								t.setDestinationAirpoty(t.getSourceAirport());
+//								t.setSourceAirport(dest);
+//								AvailableTransport at2=v.viewDisplayList(t);
+//								for(int i=0;i<at2.getAvailList().size();i++)
+//								{
+//									System.out.println(i+1+")"+at2.getAvailList().get(i).getAircraft());
+//								}
+//								System.out.println("Select your choice:");
+//								int choice2=s.nextInt();
+//								Transportation transportation2=at.getAvailList().get(choice2);
+//								SelectedTransport st2=new SelectedTransport();
+//								st2.addSelectedTransport(transportation2);
+//								Reservation r2=new Reservation();
+//								r2.setTransport(st2);
+//								r2.setCustomer(customer);
+//								v.viewConfirmReservation(r2);
+//							}
+							
+							
+							System.out.println("Successfully booked the flight with reservation ID:"+id);
+						}
+						else 
+						{
+							System.out.println("Flights for this selection do not exist in the DB!!");
 						}
 						
-						
-						System.out.println("Successfully booked the flight with reservation ID:"+id);
 					}
 					else if(k==2)
 					{
