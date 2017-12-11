@@ -3,6 +3,8 @@ package com.flight.dao;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 //import javax.persistence.Query;
@@ -83,11 +85,8 @@ public class Database {
 				Query query=session.createQuery("select max(id)from ReservationEntity");
 				List q=query.list();
 				int id=0;
-				
 				if(q.get(0)!=null)
-				{
 					id=(int)q.get(0);
-				}
 				List<TransportationEntity> lte=new ArrayList<>();
 				List<Transportation> lt=reservation.getTransport().getSelectedList();
 				for(int i=0;i<lt.size();i++)
@@ -357,11 +356,7 @@ public class Database {
 		Query query=session.createQuery("from FlightDetailsEntity where departureDate>=:depdate and sourceAirport='"+transport.getSourceAirport()+"'and destinationAirpoty='"+transport.getDestinationAirpoty()+"'");
 		query.setDate("depdate", transport.getDepartureDate().getTime());
 		List<FlightDetailsEntity> list1=query.list();
-		//System.out.println(list1.get(0).getAircraft());
-		if(list1.size()==0)
-		{
-			return null;
-		}
+		System.out.println(list1.get(0).getAircraft());
 		AvailableTransport at=new AvailableTransport();
 		for(int i=0;i<list1.size();i++)
 		{
@@ -499,5 +494,62 @@ public class Database {
 		}
 		
 		return null;
+	}
+	public void returnAvailableSeats(Transportation transportation) {
+		// TODO Auto-generated method stub
+		try
+		{
+			factory=getDBTable();
+			FlightDetailsEntity te=session.get(FlightDetailsEntity.class,transportation.getId());
+			if(te.getSeatsBooked().equals(""))
+			{
+				System.out.println("Please enter the seats that you want to book between 1 and 10");
+				Scanner s=new Scanner(System.in);
+				String inp=s.next();
+				te.setSeatsBooked(inp);
+				session.save(te);
+				session.getTransaction().commit();
+			}
+			else
+			{
+				StringTokenizer st=new StringTokenizer(te.getSeatsBooked(), ",");
+				List<Integer> li=new ArrayList<>();
+				String output="";
+				while(st.hasMoreTokens())
+				{
+					String str=st.nextToken();
+					li.add(Integer.parseInt(str));
+				}
+				if(li.size()==10)
+				{
+					System.out.println("The custom booking seats have been reserved. We cannot assigned you the desired seat");
+				}
+				else
+				{
+					for(int i=0;i<10;i++)
+					{
+						if(!li.contains(i))
+						{
+							output+=""+i+" ";
+						}
+					}
+					System.out.println("Please select any of the following seats:");
+					Scanner s=new Scanner(System.in);
+					String seat=s.next();
+					te.setSeatsBooked(te.getSeatsBooked()+","+seat);
+					
+				}
+			}
+			
+		}
+		catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		finally {
+			factory=null;
+			session=null;
+		}
+		
 	}
 }
