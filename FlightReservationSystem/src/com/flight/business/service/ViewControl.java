@@ -189,6 +189,7 @@ public class ViewControl {
 							System.out.println("Please Enter the CVV:");
 							pay.setCvv(s.nextInt());
 							System.out.println("Please Enter the Expiration date:");
+							Calendar arr=Calendar.getInstance();
 							String[] str2=s.next().split("-");
 							arr.set(Integer.parseInt(str2[0]), Integer.parseInt(str2[1]), Integer.parseInt(str2[2]));
 							pay.setExpirtDate(arr.getTime());
@@ -280,6 +281,7 @@ public class ViewControl {
 						System.out.println("Please enter your Reservation ID");
 						int id=s.nextInt();
 						Reservation reservation=v.d.getReservationDetails(id);
+						Calendar cal=reservation.getTransport().getSelectedList().get(0).getDepartureDate();
 						Calendar current=Calendar.getInstance();
 						if(cal.getTimeInMillis()-current.getTimeInMillis()<=86400000)
 						{
@@ -298,6 +300,8 @@ public class ViewControl {
 					{
 						System.out.println("Please enter your Reservation ID");
 						int id=s.nextInt();
+						Reservation reservation=v.d.getReservationDetails(id);
+						Transportation trans=reservation.getTransport().getSelectedList().get(0);
 						System.out.println(trans.getAircraft());
 						v.d.returnAvailableSeats(trans);
 						
