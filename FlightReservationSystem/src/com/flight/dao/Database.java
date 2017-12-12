@@ -177,6 +177,7 @@ public class Database {
 				Reservation r=new Reservation();
 				Customer c=new Customer();
 				c.setEmail(re.getCustomer().getEmail());
+				r.setCustomer(c);
 				SelectedTransport st=new SelectedTransport();
 				List<TransportationEntity> lste=re.getTransport().getSelectedList();
                 List<Transportation> list = lste.stream().map(te -> {
@@ -184,7 +185,9 @@ public class Database {
                 	transportation.setDepartureDate(te.getDepartureDate());
                 	transportation.setId(te.getId());
                 	return transportation;
-                })
+                }).collect(Collectors.toList());
+                st.setSelectedList(list);
+                r.setTransport(st);
                 return r;
 				
 				
