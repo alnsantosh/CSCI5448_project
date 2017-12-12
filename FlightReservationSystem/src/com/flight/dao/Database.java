@@ -541,10 +541,12 @@ public class Database {
 							output+=""+i+" ";
 						}
 					}
-					System.out.println("Please select any of the following seats:");
+					System.out.println("Please select any of the foll	owing seats:");
 					Scanner s=new Scanner(System.in);
 					String seat=s.next();
 					te.setSeatsBooked(te.getSeatsBooked()+","+seat);
+					session.save(te);
+					session.getTransaction().commit();
 					
 				}
 			}

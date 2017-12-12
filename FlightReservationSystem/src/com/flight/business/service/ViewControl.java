@@ -164,7 +164,8 @@ public class ViewControl {
 							}
 							System.out.println("Select your choice:");
 							int choice=s.nextInt()-1;
-							
+							while(true)
+							{
 							System.out.println("Please enter Credit/Debit card details for payment: CardType,CardNo,NameOnCard,CVV,ExpiryDate(yyyy-mm-dd)");
 							Payment pay=new Payment();
 							
@@ -192,7 +193,14 @@ public class ViewControl {
 							Calendar arr=Calendar.getInstance();
 							String[] str2=s.next().split("-");
 							arr.set(Integer.parseInt(str2[0]), Integer.parseInt(str2[1]), Integer.parseInt(str2[2]));
+							Calendar c_new = Calendar.getInstance();
+							if (arr.getTimeInMillis() - c_new.getTimeInMillis() < 0)
+							{
+								System.out.println("Card Has Expired! Please Enter Another Card's Details:");
+								continue;
+							}
 							pay.setExpirtDate(arr.getTime());
+							
 							pay.setBillingAddress(c.getAddress());
 							
 							Transportation transportation=at.getAvailList().get(choice);
@@ -235,11 +243,15 @@ public class ViewControl {
 							
 							
 							System.out.println("Successfully booked the flight with reservation ID:"+id);
+							break;
+						 }
+						
 						}
 						else 
 						{
 							System.out.println("Flights for this selection do not exist in the DB!!");
 						}
+						
 						
 					}
 					else if(k==2)
