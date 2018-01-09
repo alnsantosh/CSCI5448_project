@@ -1,7 +1,7 @@
 From 6c737f7ff0069d5b2f116ffaab35217245e9c806 Mon Sep 17 00:00:00 2001
 From: alnsantosh <aln.santosh@gmail.com>
 Date: Mon, 8 Jan 2018 02:11:34 +0530
-Subject: [PATCH 1/2] Testing git
+Subject: [PATCH 1/4] Testing git
 
 ---
  Database.java | 2 +-
@@ -24,7 +24,7 @@ index a1e11f7..0120716 100644
 From cfb1d451a03295c6f70871492f0af30b61b5b840 Mon Sep 17 00:00:00 2001
 From: alnsantosh <aln.santosh@gmail.com>
 Date: Tue, 9 Jan 2018 14:28:57 +0530
-Subject: [PATCH 2/2] testing git
+Subject: [PATCH 2/4] testing git
 
 ---
  Database.java | 2 +-
@@ -40,6 +40,94 @@ index 0120716..0a9a6e1 100644
  
  import java.util.ArrayList;
  import java.util.List;
+-- 
+2.15.1.windows.2
+
+
+From ee6c8a52f3c5b04224bd24ef175318157794dced Mon Sep 17 00:00:00 2001
+From: alnsantosh <aln.santosh@gmail.com>
+Date: Tue, 9 Jan 2018 14:32:12 +0530
+Subject: [PATCH 3/4] as
+
+---
+ fix_empty_poster.patch | 45 +++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
+ create mode 100644 fix_empty_poster.patch
+
+diff --git a/fix_empty_poster.patch b/fix_empty_poster.patch
+new file mode 100644
+index 0000000..be52f67
+--- /dev/null
++++ b/fix_empty_poster.patch
+@@ -0,0 +1,45 @@
++From 6c737f7ff0069d5b2f116ffaab35217245e9c806 Mon Sep 17 00:00:00 2001
++From: alnsantosh <aln.santosh@gmail.com>
++Date: Mon, 8 Jan 2018 02:11:34 +0530
++Subject: [PATCH 1/2] Testing git
++
++---
++ Database.java | 2 +-
++ 1 file changed, 1 insertion(+), 1 deletion(-)
++
++diff --git a/Database.java b/Database.java
++index a1e11f7..0120716 100644
++--- a/Database.java
+++++ b/Database.java
++@@ -1,4 +1,4 @@
++-package com.flight.dao;
+++package com.flight.dao;//Packages
++ 
++ import java.util.ArrayList;
++ import java.util.List;
++-- 
++2.15.1.windows.2
++
++
++From cfb1d451a03295c6f70871492f0af30b61b5b840 Mon Sep 17 00:00:00 2001
++From: alnsantosh <aln.santosh@gmail.com>
++Date: Tue, 9 Jan 2018 14:28:57 +0530
++Subject: [PATCH 2/2] testing git
++
++---
++ Database.java | 2 +-
++ 1 file changed, 1 insertion(+), 1 deletion(-)
++
++diff --git a/Database.java b/Database.java
++index 0120716..0a9a6e1 100644
++--- a/Database.java
+++++ b/Database.java
++@@ -1,4 +1,4 @@
++-package com.flight.dao;//Packages
+++package com.flight.dao;//Packages in Database class
++ 
++ import java.util.ArrayList;
++ import java.util.List;
++-- 
++2.15.1.windows.2
++
+-- 
+2.15.1.windows.2
+
+
+From 7a050ab5f54b4b7013abf7c7b7a8fada63de5d12 Mon Sep 17 00:00:00 2001
+From: alnsantosh <aln.santosh@gmail.com>
+Date: Tue, 9 Jan 2018 14:40:51 +0530
+Subject: [PATCH 4/4] ViewControlEdit
+
+---
+ ViewControl.java | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/ViewControl.java b/ViewControl.java
+index 7517a1a..ec7d739 100644
+--- a/ViewControl.java
++++ b/ViewControl.java
+@@ -1,4 +1,4 @@
+-package com.flight.business.service;
++package com.flight.business.service;//ViewControl
+ 
+ import java.util.Date;
+ import java.util.Scanner;
 -- 
 2.15.1.windows.2
 
