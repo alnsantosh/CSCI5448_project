@@ -1,4 +1,4 @@
-package com.flight.dao;//Packages
+package com.flight.dao;//Packages in Database class
 
 import java.util.ArrayList;
 import java.util.List;
